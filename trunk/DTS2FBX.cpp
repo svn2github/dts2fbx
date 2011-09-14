@@ -41,6 +41,7 @@ class FBXExpoter
 {
 public:
     std::vector<KFbxSurfaceMaterial*> materials;
+    std::vector<KFbxNode*>            skeletonNodes;
     
 public:
     FBXExpoter();
@@ -310,6 +311,34 @@ const KFbxVector4 NormalTable[] =
     KFbxVector4( 0.194979f, -0.059120f, 0.979024f )
 };
 
+int LoadFBX(KFbxSdkManager* sdkManager, KFbxScene* scene, const char* fbxFile)
+{
+	KFbxImporter*   importer   = KFbxImporter::Create(sdkManager, "");
+	KFbxIOSettings* ioSettings = KFbxIOSettings::Create(sdkManager, IOSROOT);
+    
+	ioSettings->SetBoolProp(IMP_FBX_MATERIAL,  true);
+	ioSettings->SetBoolProp(IMP_FBX_TEXTURE,   true);
+	ioSettings->SetBoolProp(IMP_FBX_ANIMATION, true);
+	ioSettings->SetBoolProp(IMP_FBX_SHAPE,     true);
+    
+    if (!importer->Initialize(fbxFile, -1, ioSettings))
+    {
+		fprintf(stderr, "Failed to initialize FBX importer\n");
+		importer->Destroy();
+		return -1;
+    }
+
+	if (!importer->Import(scene))
+	{
+		fprintf(stderr, "Failed to load FBX file\n");
+		importer->Destroy();
+		return -1;
+	}
+
+    importer->Destroy();
+    return 0;
+}
+
 int ExportFBX(KFbxSdkManager* sdkManager, KFbxScene* scene, const char* fbxFile)
 {
 	KFbxExporter*   exporter   = KFbxExporter::Create(sdkManager, "");
@@ -379,8 +408,6 @@ KFbxVector4 DTSQuaternionToEuler(const Quaternion& q)
 {
     Quaternion q1(q);
     
-    q1.w = -q1.w;
-    
     double sqw  = q1.w * q1.w;
     double sqx  = q1.x * q1.x;
     double sqy  = q1.y * q1.y;
@@ -406,24 +433,24 @@ KFbxVector4 DTSQuaternionToEuler(const Quaternion& q)
     }
     else
     {
-        double headingA = 2 * q1.y * q1.w - 2 * q1.x * q1.z;
-        double headingB = sqx - sqy - sqz + sqw;
+        double headingA = 2.0 * q1.y * q1.w - 2.0 * q1.x * q1.z;
+        double headingB = 1.0 - 2.0 * sqy - 2 * sqz;
         
-        double bankA = 2 * q1.x * q1.w - 2 * q1.y * q1.z;
-        double bankB = -sqx + sqy - sqz + sqw;
+        double bankA = 2.0 * q1.x * q1.w - 2.0 * q1.y * q1.z;
+        double bankB = 1.0-2.0 * sqx - 2.0 * sqz;
         
-        heading  = atan2(headingB, headingA);
-        bank     = atan2(bankB,    bankA);
+        heading  = atan2(headingA, headingB);
+        bank     = atan2(bankA,    bankB);
         attitude = asin (2 * test / unit);
     }
     
-    heading  *= (180 / M_PI);
-    bank     *= (180 / M_PI);
-    attitude *= (180 / M_PI);
-    return KFbxVector4(-bank, attitude, heading - 90);
+    heading  *= (180.0 / M_PI);
+    bank     *= (180.0 / M_PI);
+    attitude *= (180.0 / M_PI);
+    return KFbxVector4(bank, heading, /* - */ attitude);
 }
 
-void convertMesh(FBXExpoter& exporter, const DTSBase& shape, const DTSMesh& mesh, KFbxSdkManager* sdkManager, KFbxScene* scene, KFbxNode* node)
+void convertMesh(FBXExpoter& exporter, const DTSShape& shape, const DTSMesh& mesh, KFbxSdkManager* sdkManager, KFbxScene* scene, KFbxNode* node)
 {
     if (mesh.vertsPerFrame == 0)
     {
@@ -436,7 +463,7 @@ void convertMesh(FBXExpoter& exporter, const DTSBase& shape, const DTSMesh& mesh
     
     int                          index;
     KFbxMesh*                    meshFbx       = KFbxMesh::Create(node, node->GetName());
-    KFbxGeometryElementUV*       meshUVs       = meshFbx->CreateElementUV("uv");
+    KFbxGeometryElementUV*       meshUVs       = meshFbx->CreateElementUV("UV");
     KFbxGeometryElementNormal*   meshNormals   = meshFbx->CreateElementNormal();
     KFbxGeometryElementMaterial* meshMaterials = meshFbx->CreateElementMaterial();
     
@@ -556,6 +583,58 @@ void convertMesh(FBXExpoter& exporter, const DTSBase& shape, const DTSMesh& mesh
     
     node->SetNodeAttribute(meshFbx);
     node->SetShadingMode(KFbxNode::eTEXTURE_SHADING);
+    
+    if (mesh.type == DTSMesh::T_Skin)
+    {
+        KFbxXMatrix meshMatrix;
+        
+        meshMatrix = node->EvaluateGlobalTransform();
+        
+        KFbxSkin* skin = KFbxSkin::Create(scene, "");
+        
+        std::vector<int>::const_iterator           nodeIndexIt,  nodeIndexEnd = mesh.nodeIndex.end();
+        std::vector<Matrix<4, 4> >::const_iterator nodeMatrixIt, nodeMatrixEnd = mesh.nodeTransform.end();
+        std::vector<KFbxCluster*>                  clusters;
+        
+        for (nodeIndexIt = mesh.nodeIndex.begin(), nodeMatrixIt = mesh.nodeTransform.begin(); nodeIndexIt != nodeIndexEnd; ++nodeMatrixIt, ++nodeIndexIt)
+        {
+            int            nodeIndex = *nodeIndexIt;
+            const DTSNode& dtsNode    (shape.nodes[nodeIndex]);
+            std::string    clusterName(shape.names[dtsNode.name]);
+            
+            KFbxCluster* cluster = KFbxCluster::Create(sdkManager, clusterName.c_str());
+            
+            cluster->SetLink(exporter.skeletonNodes[nodeIndex]);
+            cluster->SetLinkMode(KFbxCluster::eTOTAL1);
+            cluster->SetTransformMatrix(meshMatrix);
+            cluster->SetTransformLinkMatrix(exporter.skeletonNodes[nodeIndex]->EvaluateGlobalTransform());
+            
+            KFbxXMatrix        fbxMatrix;
+            double*            fbxMatrixD = fbxMatrix;
+            const Matrix<4,4>& dtsMatrix = *nodeMatrixIt;
+            
+            for (int mi = 0; mi < 16; mi++) {
+                fbxMatrixD[mi] = dtsMatrix.data[mi];
+            }
+            
+            skin->AddCluster(cluster);
+            clusters.push_back(cluster);
+        }
+        
+        std::vector<int>  ::const_iterator vindexIt (mesh.vindex .begin()), vindexEnd (mesh.vindex .end());
+        std::vector<int>  ::const_iterator vboneIt  (mesh.vbone  .begin()), vboneEnd  (mesh.vbone  .end());
+        std::vector<float>::const_iterator vheightIt(mesh.vweight.begin()), vheightEnd(mesh.vweight.end());
+        
+        for (; vindexIt != vindexEnd; ++vindexIt, ++vboneIt, ++vheightIt)
+        {
+            KFbxCluster* cluster = clusters[*vboneIt];
+            int          vertex  = *vindexIt;
+            
+            cluster->AddControlPointIndex(vertex, *vheightIt);
+        }
+        
+        meshFbx->AddDeformer(skin);
+    }
 }
 
 void convertNodePositionAndRotation(const DTSShape& shape, int nodeIndex, KFbxNode* node)
@@ -565,16 +644,24 @@ void convertNodePositionAndRotation(const DTSShape& shape, int nodeIndex, KFbxNo
         KFbxVector4 translation;
         KFbxVector4 rotation;
     
+#if 0
         translation = KFbxVector4(
                               shape.nodeDefTranslations[nodeIndex].x,
                               shape.nodeDefTranslations[nodeIndex].z - 0.5,
                               -shape.nodeDefTranslations[nodeIndex].y);
-    
+#else
+        translation = KFbxVector4(
+                                  shape.nodeDefTranslations[nodeIndex].x,
+                                  shape.nodeDefTranslations[nodeIndex].y,
+                                  shape.nodeDefTranslations[nodeIndex].z);
+#endif
+        
         rotation = DTSQuaternionToEuler(shape.nodeDefRotations[nodeIndex]);
     
         node->LclTranslation.Set(translation);
         node->LclRotation.Set(rotation);
     }
+#if 0
     else
     {
         Quaternion q;
@@ -584,6 +671,7 @@ void convertNodePositionAndRotation(const DTSShape& shape, int nodeIndex, KFbxNo
         node->LclTranslation.Set(KFbxVector4(-1, -0.5, 0));
         node->LclRotation.Set(KFbxVector4(0, 90, 0));
     }
+#endif
 }
 
 int convertObject(FBXExpoter& exporter, const DTSShape& shape, const DTSSubshape& subshape, const DTSObject& object, KFbxSdkManager* sdkManager, KFbxScene* scene, KFbxNode* parentNode)
@@ -627,8 +715,14 @@ int convertSubshape(FBXExpoter& exporter, const DTSShape& shape, const DTSSubsha
     return 0;
 }
 
-int convertSkeleton(FBXExpoter exporter, const DTSShape& shape, KFbxSdkManager* sdkManager, KFbxScene* scene)
+int convertSkeleton(FBXExpoter& exporter, const DTSShape& shape, KFbxSdkManager* sdkManager, KFbxScene* scene)
 {
+    KFbxNode*     rootSkeletonNode = KFbxNode::Create(scene, "Skeleton");
+    KFbxSkeleton* rootSkeleton     = KFbxSkeleton::Create(scene, "Skeleton");
+    
+    rootSkeleton->SetSkeletonType(KFbxSkeleton::eROOT);
+    rootSkeletonNode->SetNodeAttribute(rootSkeleton);
+    
     std::vector<DTSNode>::const_iterator nodeIt, nodeEnd(shape.nodes.end());
     std::vector<KFbxNode*>     nodes;
     std::vector<KFbxSkeleton*> skeletons;
@@ -636,6 +730,14 @@ int convertSkeleton(FBXExpoter exporter, const DTSShape& shape, KFbxSdkManager* 
     
     for (nodeIt = shape.nodes.begin(), index = 0; nodeIt != nodeEnd; ++nodeIt, ++index)
     {
+        if (shape.nodeIsLinkedToObject(index))
+        {
+            nodes.push_back(NULL);
+            skeletons.push_back(NULL);
+            exporter.skeletonNodes.push_back(NULL);
+            continue;
+        }
+        
         const DTSNode& node(*nodeIt);
         std::string    nodeName;
         
@@ -648,14 +750,23 @@ int convertSkeleton(FBXExpoter exporter, const DTSShape& shape, KFbxSdkManager* 
         KFbxSkeleton* currentSkeleton = KFbxSkeleton::Create(scene, nodeName.c_str());
         
         convertNodePositionAndRotation(shape, index, currentNode);
+        currentSkeleton->SetSkeletonType(KFbxSkeleton::eLIMB_NODE);
+        
         currentNode->SetNodeAttribute(currentSkeleton);
         
         nodes.push_back    (currentNode);
         skeletons.push_back(currentSkeleton);
+        
+        exporter.skeletonNodes.push_back(currentNode);
     }
 
     for (nodeIt = shape.nodes.begin(), index = 0; nodeIt != nodeEnd; ++nodeIt, ++index)
     {
+        if (shape.nodeIsLinkedToObject(index))
+        {
+            continue;
+        }
+        
         const DTSNode& node(*nodeIt);
         
         if (node.parent != -1)
@@ -664,10 +775,11 @@ int convertSkeleton(FBXExpoter exporter, const DTSShape& shape, KFbxSdkManager* 
         }
         else
         {
-            scene->GetRootNode()->AddChild(nodes[index]);
+            rootSkeletonNode->AddChild(nodes[index]);
         }
     }
 
+    scene->GetRootNode()->AddChild(rootSkeletonNode);
     return 0;
 }
 
@@ -730,3 +842,17 @@ int convert(const DTSResolver& resolver, const DTSShape& shape, const char* fbxF
     
     return ExportFBX(sdkManager, scene, fbxFile);
 }
+
+int convertAnimations(const DTSShape& shape, const std::vector<DTSShape>& files, const char* fbxFile)
+{
+	KFbxSdkManager* sdkManager = KFbxSdkManager::Create();
+	KFbxScene*      scene      = KFbxScene::Create(sdkManager, "");
+    
+    if (LoadFBX(sdkManager, scene, fbxFile) != 0)
+    {
+        return -1;
+    }
+    
+    return ExportFBX(sdkManager, scene, fbxFile);
+}
+

@@ -367,6 +367,7 @@ int info(FILE* fileOut, DTSShape& shape)
 }
 
 int convert(const DTSResolver&, const DTSShape& shape, const char* fbxFile);
+int convertAnimations(const DTSShape& shape, const std::vector<DTSShape>& files, const char* fbxFile);
 
 int main (int argc, const char * argv[])
 {
@@ -386,16 +387,14 @@ int main (int argc, const char * argv[])
         return -1;
     }
     
-    DTSShape shape(f);
+    DTSShape shape;
 
+    shape.loadShapeFile(f);
     fclose(f);
     
     if (strcmp(argv[1], "info") == 0)
     {
-		f = fopen("/Users/richard/t.txt", "wt");
-
-        info(f, shape);
-		fclose(f);
+        info(stdout, shape);
     }
     else if (strcmp(argv[1], "convert") == 0)
     {
@@ -405,6 +404,31 @@ int main (int argc, const char * argv[])
         resolver.addPathContaining(argv[3]);
         
         return convert(resolver, shape, argv[3]);
+    }
+    else if (strcmp(argv[1], "addanim") == 0)
+    {
+        std::vector<DTSShape> sequenceFiles;
+        
+        for (int index = 4; index < argc; index++)
+        {
+            f = fopen(argv[index], "rb");
+        
+            if (f)
+            {
+                DTSShape sequence;
+                
+                sequence.loadSequenceFile(f);
+                fclose(f);
+                
+                sequenceFiles.push_back(sequence);
+            }
+            else
+            {
+                fprintf(stderr, "Error: Can't open %s\n", argv[index]);
+            }
+        }
+        
+        return convertAnimations(shape, sequenceFiles, argv[3]);
     }
     else
     {

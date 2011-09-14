@@ -1,0 +1,971 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7957D2D5140DCEB8003EEAC4 /* DTSBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7957D2D4140DCEB8003EEAC4 /* DTSBase.cpp */; };
+		796334D813C7EEB8003E264E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 796334D713C7EEB8003E264E /* main.cpp */; };
+		79703CBE140F0713001A80B8 /* DTSShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79703CBD140F0713001A80B8 /* DTSShape.cpp */; };
+		7979A8ED14103A95006E4F7B /* DTS2FBX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7979A8EC14103A95006E4F7B /* DTS2FBX.cpp */; };
+		7979A8F014103B17006E4F7B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7979A8EF14103B17006E4F7B /* CoreFoundation.framework */; };
+		7979A8F214103B41006E4F7B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7979A8F114103B41006E4F7B /* CoreServices.framework */; };
+		7979A8F4141042E2006E4F7B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7979A8F3141042E2006E4F7B /* SystemConfiguration.framework */; };
+		79F91827141D3BBC00BF4094 /* libfbxsdk-2012.1-static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 796335EF13C7EF7F003E264E /* libfbxsdk-2012.1-static.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		796334D113C7EEB8003E264E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7957D2D1140DCE00003EEAC4 /* DTSTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSTypes.h; sourceTree = "<group>"; };
+		7957D2D2140DCE27003EEAC4 /* DTSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSBase.h; sourceTree = "<group>"; };
+		7957D2D3140DCE65003EEAC4 /* DTSShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSShape.h; sourceTree = "<group>"; };
+		7957D2D4140DCEB8003EEAC4 /* DTSBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSBase.cpp; sourceTree = "<group>"; };
+		796334D313C7EEB8003E264E /* dts2fbx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dts2fbx; sourceTree = BUILT_PRODUCTS_DIR; };
+		796334D713C7EEB8003E264E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		796334E313C7EF7F003E264E /* isocpp_conformant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isocpp_conformant.h; sourceTree = "<group>"; };
+		796334E513C7EF7F003E264E /* arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arch.h; sourceTree = "<group>"; };
+		796334E613C7EF7F003E264E /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		796334E813C7EF7F003E264E /* kfbx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbx.h; sourceTree = "<group>"; };
+		796334EA13C7EF7F003E264E /* karrayul.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = karrayul.h; sourceTree = "<group>"; };
+		796334EB13C7EF7F003E264E /* kcharptrset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kcharptrset.h; sourceTree = "<group>"; };
+		796334EC13C7EF7F003E264E /* kcontainerallocators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kcontainerallocators.h; sourceTree = "<group>"; };
+		796334ED13C7EF7F003E264E /* kdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdebug.h; sourceTree = "<group>"; };
+		796334EE13C7EF7F003E264E /* kdynamicarray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdynamicarray.h; sourceTree = "<group>"; };
+		796334EF13C7EF7F003E264E /* kerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kerror.h; sourceTree = "<group>"; };
+		796334F013C7EF7F003E264E /* kintrusivelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kintrusivelist.h; sourceTree = "<group>"; };
+		796334F113C7EF7F003E264E /* kmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kmap.h; sourceTree = "<group>"; };
+		796334F213C7EF7F003E264E /* kmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kmemory.h; sourceTree = "<group>"; };
+		796334F313C7EF7F003E264E /* kname.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kname.h; sourceTree = "<group>"; };
+		796334F413C7EF7F003E264E /* kpair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kpair.h; sourceTree = "<group>"; };
+		796334F513C7EF7F003E264E /* krenamingstrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = krenamingstrategy.h; sourceTree = "<group>"; };
+		796334F613C7EF7F003E264E /* kscopedptr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kscopedptr.h; sourceTree = "<group>"; };
+		796334F713C7EF7F003E264E /* kset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kset.h; sourceTree = "<group>"; };
+		796334F813C7EF7F003E264E /* kstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kstring.h; sourceTree = "<group>"; };
+		796334F913C7EF7F003E264E /* kstringlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kstringlist.h; sourceTree = "<group>"; };
+		796334FA13C7EF7F003E264E /* ksystemtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksystemtime.h; sourceTree = "<group>"; };
+		796334FB13C7EF7F003E264E /* ktime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ktime.h; sourceTree = "<group>"; };
+		796334FC13C7EF7F003E264E /* t-str-linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "t-str-linux.h"; sourceTree = "<group>"; };
+		796334FD13C7EF7F003E264E /* t-str-macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "t-str-macosx.h"; sourceTree = "<group>"; };
+		796334FE13C7EF7F003E264E /* t-str-win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "t-str-win32.h"; sourceTree = "<group>"; };
+		796334FF13C7EF7F003E264E /* t-str.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "t-str.h"; sourceTree = "<group>"; };
+		7963350213C7EF7F003E264E /* keventbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keventbase.h; sourceTree = "<group>"; };
+		7963350313C7EF7F003E264E /* klibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = klibrary.h; sourceTree = "<group>"; };
+		7963350513C7EF7F003E264E /* kfiltersetenum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfiltersetenum.h; sourceTree = "<group>"; };
+		7963350713C7EF7F003E264E /* kfcurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfcurve.h; sourceTree = "<group>"; };
+		7963350813C7EF7F003E264E /* kfcurveglobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfcurveglobal.h; sourceTree = "<group>"; };
+		7963350913C7EF7F003E264E /* kfcurvenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfcurvenode.h; sourceTree = "<group>"; };
+		7963350A13C7EF7F003E264E /* kfcurveutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfcurveutils.h; sourceTree = "<group>"; };
+		7963350E13C7EF7F003E264E /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		7963350F13C7EF7F003E264E /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
+		7963351013C7EF7F003E264E /* encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoding.h; sourceTree = "<group>"; };
+		7963351113C7EF7F003E264E /* entities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entities.h; sourceTree = "<group>"; };
+		7963351213C7EF7F003E264E /* globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
+		7963351313C7EF7F003E264E /* hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hash.h; sourceTree = "<group>"; };
+		7963351413C7EF7F003E264E /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		7963351513C7EF7F003E264E /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		7963351613C7EF7F003E264E /* SAX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAX.h; sourceTree = "<group>"; };
+		7963351713C7EF7F003E264E /* SAX2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAX2.h; sourceTree = "<group>"; };
+		7963351813C7EF7F003E264E /* threads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threads.h; sourceTree = "<group>"; };
+		7963351913C7EF7F003E264E /* tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tree.h; sourceTree = "<group>"; };
+		7963351A13C7EF7F003E264E /* valid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = valid.h; sourceTree = "<group>"; };
+		7963351B13C7EF7F003E264E /* xlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlink.h; sourceTree = "<group>"; };
+		7963351C13C7EF7F003E264E /* xmlautomata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlautomata.h; sourceTree = "<group>"; };
+		7963351D13C7EF7F003E264E /* xmlerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlerror.h; sourceTree = "<group>"; };
+		7963351E13C7EF7F003E264E /* xmlexports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlexports.h; sourceTree = "<group>"; };
+		7963351F13C7EF7F003E264E /* xmlIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlIO.h; sourceTree = "<group>"; };
+		7963352013C7EF7F003E264E /* xmlmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlmemory.h; sourceTree = "<group>"; };
+		7963352113C7EF7F003E264E /* xmlregexp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlregexp.h; sourceTree = "<group>"; };
+		7963352213C7EF7F003E264E /* xmlversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlversion.h; sourceTree = "<group>"; };
+		7963352313C7EF7F003E264E /* libxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libxml.h; sourceTree = "<group>"; };
+		7963352413C7EF7F003E264E /* trio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trio.h; sourceTree = "<group>"; };
+		7963352513C7EF7F003E264E /* triodef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triodef.h; sourceTree = "<group>"; };
+		7963352813C7EF7F003E264E /* kfbxcollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcollection.h; sourceTree = "<group>"; };
+		7963352913C7EF7F003E264E /* kfbxcollectionexclusive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcollectionexclusive.h; sourceTree = "<group>"; };
+		7963352A13C7EF7F003E264E /* kfbxdocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxdocument.h; sourceTree = "<group>"; };
+		7963352B13C7EF7F003E264E /* kfbxdocumentinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxdocumentinfo.h; sourceTree = "<group>"; };
+		7963352C13C7EF7F003E264E /* kfbxpropertymap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxpropertymap.h; sourceTree = "<group>"; };
+		7963352E13C7EF7F003E264E /* fbxxref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxxref.h; sourceTree = "<group>"; };
+		7963352F13C7EF7F003E264E /* fbxxref_def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxxref_def.h; sourceTree = "<group>"; };
+		7963353013C7EF7F003E264E /* fbxxref_module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxxref_module.h; sourceTree = "<group>"; };
+		7963353113C7EF7F003E264E /* kfbxref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxref.h; sourceTree = "<group>"; };
+		7963353213C7EF7F003E264E /* kfbxpropertydef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxpropertydef.h; sourceTree = "<group>"; };
+		7963353313C7EF7F003E264E /* kfbxpropertyhandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxpropertyhandle.h; sourceTree = "<group>"; };
+		7963353413C7EF7F003E264E /* kfbxquery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxquery.h; sourceTree = "<group>"; };
+		7963353513C7EF7F003E264E /* fbxfilesdk_def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_def.h; sourceTree = "<group>"; };
+		7963353613C7EF7F003E264E /* fbxfilesdk_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_memory.h; sourceTree = "<group>"; };
+		7963353713C7EF7F003E264E /* fbxfilesdk_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_new.h; sourceTree = "<group>"; };
+		7963353813C7EF7F003E264E /* fbxfilesdk_nsbegin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_nsbegin.h; sourceTree = "<group>"; };
+		7963353913C7EF7F003E264E /* fbxfilesdk_nsend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_nsend.h; sourceTree = "<group>"; };
+		7963353A13C7EF7F003E264E /* fbxfilesdk_nsuse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_nsuse.h; sourceTree = "<group>"; };
+		7963353B13C7EF7F003E264E /* fbxfilesdk_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxfilesdk_version.h; sourceTree = "<group>"; };
+		7963353D13C7EF7F003E264E /* fbxprocessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxprocessors.h; sourceTree = "<group>"; };
+		7963353E13C7EF7F003E264E /* fbxprocessors_def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxprocessors_def.h; sourceTree = "<group>"; };
+		7963353F13C7EF7F003E264E /* fbxprocessors_module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxprocessors_module.h; sourceTree = "<group>"; };
+		7963354013C7EF7F003E264E /* kfbxembeddedfilesaccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxembeddedfilesaccumulator.h; sourceTree = "<group>"; };
+		7963354113C7EF7F003E264E /* kfbxprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxprocessor.h; sourceTree = "<group>"; };
+		7963354213C7EF7F003E264E /* kfbxprocessorxref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxprocessorxref.h; sourceTree = "<group>"; };
+		7963354313C7EF7F003E264E /* kfbxprocessorxrefuserlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxprocessorxrefuserlib.h; sourceTree = "<group>"; };
+		7963354513C7EF7F003E264E /* kfbxcharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcharacter.h; sourceTree = "<group>"; };
+		7963354613C7EF7F003E264E /* kfbxcharacterpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcharacterpose.h; sourceTree = "<group>"; };
+		7963354713C7EF7F003E264E /* kfbxcontrolset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcontrolset.h; sourceTree = "<group>"; };
+		7963354913C7EF7F003E264E /* includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = includes.h; sourceTree = "<group>"; };
+		7963354A13C7EF7F003E264E /* kfbxemitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxemitter.h; sourceTree = "<group>"; };
+		7963354B13C7EF7F003E264E /* kfbxeventhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxeventhandler.h; sourceTree = "<group>"; };
+		7963354C13C7EF7F003E264E /* kfbxevents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxevents.h; sourceTree = "<group>"; };
+		7963354D13C7EF7F003E264E /* kfbxlistener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlistener.h; sourceTree = "<group>"; };
+		7963354F13C7EF7F003E264E /* kfbxexporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxexporter.h; sourceTree = "<group>"; };
+		7963355013C7EF7F003E264E /* kfbxexternaldocreflistener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxexternaldocreflistener.h; sourceTree = "<group>"; };
+		7963355113C7EF7F003E264E /* kfbxfiletokenfbx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxfiletokenfbx.h; sourceTree = "<group>"; };
+		7963355213C7EF7F003E264E /* kfbxgobo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgobo.h; sourceTree = "<group>"; };
+		7963355313C7EF7F003E264E /* kfbximporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbximporter.h; sourceTree = "<group>"; };
+		7963355413C7EF7F003E264E /* kfbxio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxio.h; sourceTree = "<group>"; };
+		7963355513C7EF7F003E264E /* kfbxiosettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxiosettings.h; sourceTree = "<group>"; };
+		7963355613C7EF7F003E264E /* kfbxiosettingspath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxiosettingspath.h; sourceTree = "<group>"; };
+		7963355713C7EF7F003E264E /* kfbxprogress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxprogress.h; sourceTree = "<group>"; };
+		7963355813C7EF7F003E264E /* kfbxreader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxreader.h; sourceTree = "<group>"; };
+		7963355913C7EF7F003E264E /* kfbxstatisticsfbx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxstatisticsfbx.h; sourceTree = "<group>"; };
+		7963355A13C7EF7F003E264E /* kfbxwriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxwriter.h; sourceTree = "<group>"; };
+		7963355C13C7EF7F003E264E /* kfbxdualquaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxdualquaternion.h; sourceTree = "<group>"; };
+		7963355D13C7EF7F003E264E /* kfbxmatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmatrix.h; sourceTree = "<group>"; };
+		7963355E13C7EF7F003E264E /* kfbxquaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxquaternion.h; sourceTree = "<group>"; };
+		7963355F13C7EF7F003E264E /* kfbxtransformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxtransformation.h; sourceTree = "<group>"; };
+		7963356013C7EF7F003E264E /* kfbxvector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxvector2.h; sourceTree = "<group>"; };
+		7963356113C7EF7F003E264E /* kfbxvector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxvector4.h; sourceTree = "<group>"; };
+		7963356213C7EF7F003E264E /* kfbxxmatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxxmatrix.h; sourceTree = "<group>"; };
+		7963356413C7EF7F003E264E /* includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = includes.h; sourceTree = "<group>"; };
+		7963356513C7EF7F003E264E /* kfbxloadingstrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxloadingstrategy.h; sourceTree = "<group>"; };
+		7963356613C7EF7F003E264E /* kfbxplugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxplugin.h; sourceTree = "<group>"; };
+		7963356713C7EF7F003E264E /* kfbxplugincontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxplugincontainer.h; sourceTree = "<group>"; };
+		7963356813C7EF7F003E264E /* kfbxqueryevent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxqueryevent.h; sourceTree = "<group>"; };
+		7963356913C7EF7F003E264E /* kfbxscopedloadingdirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxscopedloadingdirectory.h; sourceTree = "<group>"; };
+		7963356A13C7EF7F003E264E /* kfbxscopedloadingfilename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxscopedloadingfilename.h; sourceTree = "<group>"; };
+		7963356C13C7EF7F003E264E /* kfbxmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmutex.h; sourceTree = "<group>"; };
+		7963356E13C7EF7F003E264E /* conventions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = conventions.h; sourceTree = "<group>"; };
+		7963356F13C7EF7F003E264E /* kfbxanimcurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimcurve.h; sourceTree = "<group>"; };
+		7963357013C7EF7F003E264E /* kfbxanimcurvebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimcurvebase.h; sourceTree = "<group>"; };
+		7963357113C7EF7F003E264E /* kfbxanimcurvefilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimcurvefilters.h; sourceTree = "<group>"; };
+		7963357213C7EF7F003E264E /* kfbxanimcurvekfcurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimcurvekfcurve.h; sourceTree = "<group>"; };
+		7963357313C7EF7F003E264E /* kfbxanimcurvenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimcurvenode.h; sourceTree = "<group>"; };
+		7963357413C7EF7F003E264E /* kfbxanimevalclassic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimevalclassic.h; sourceTree = "<group>"; };
+		7963357513C7EF7F003E264E /* kfbxanimevalstate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimevalstate.h; sourceTree = "<group>"; };
+		7963357613C7EF7F003E264E /* kfbxanimevaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimevaluator.h; sourceTree = "<group>"; };
+		7963357713C7EF7F003E264E /* kfbxanimlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimlayer.h; sourceTree = "<group>"; };
+		7963357813C7EF7F003E264E /* kfbxanimstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxanimstack.h; sourceTree = "<group>"; };
+		7963357913C7EF7F003E264E /* kfbxaxissystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxaxissystem.h; sourceTree = "<group>"; };
+		7963357A13C7EF7F003E264E /* kfbxbindingoperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxbindingoperator.h; sourceTree = "<group>"; };
+		7963357B13C7EF7F003E264E /* kfbxbindingsentryview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxbindingsentryview.h; sourceTree = "<group>"; };
+		7963357C13C7EF7F003E264E /* kfbxbindingtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxbindingtable.h; sourceTree = "<group>"; };
+		7963357D13C7EF7F003E264E /* kfbxbindingtablebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxbindingtablebase.h; sourceTree = "<group>"; };
+		7963357E13C7EF7F003E264E /* kfbxbindingtableentry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxbindingtableentry.h; sourceTree = "<group>"; };
+		7963357F13C7EF7F003E264E /* kfbxblendshape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxblendshape.h; sourceTree = "<group>"; };
+		7963358013C7EF7F003E264E /* kfbxblendshapechannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxblendshapechannel.h; sourceTree = "<group>"; };
+		7963358113C7EF7F003E264E /* kfbxcache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcache.h; sourceTree = "<group>"; };
+		7963358213C7EF7F003E264E /* kfbxcachedeffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcachedeffect.h; sourceTree = "<group>"; };
+		7963358313C7EF7F003E264E /* kfbxcamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcamera.h; sourceTree = "<group>"; };
+		7963358413C7EF7F003E264E /* kfbxcamerastereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcamerastereo.h; sourceTree = "<group>"; };
+		7963358513C7EF7F003E264E /* kfbxcameraswitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcameraswitcher.h; sourceTree = "<group>"; };
+		7963358613C7EF7F003E264E /* kfbxclonemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxclonemanager.h; sourceTree = "<group>"; };
+		7963358713C7EF7F003E264E /* kfbxcluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcluster.h; sourceTree = "<group>"; };
+		7963358813C7EF7F003E264E /* kfbxcolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcolor.h; sourceTree = "<group>"; };
+		7963358913C7EF7F003E264E /* kfbxconstantentryview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstantentryview.h; sourceTree = "<group>"; };
+		7963358A13C7EF7F003E264E /* kfbxconstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraint.h; sourceTree = "<group>"; };
+		7963358B13C7EF7F003E264E /* kfbxconstraintaim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintaim.h; sourceTree = "<group>"; };
+		7963358C13C7EF7F003E264E /* kfbxconstraintcustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintcustom.h; sourceTree = "<group>"; };
+		7963358D13C7EF7F003E264E /* kfbxconstraintparent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintparent.h; sourceTree = "<group>"; };
+		7963358E13C7EF7F003E264E /* kfbxconstraintposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintposition.h; sourceTree = "<group>"; };
+		7963358F13C7EF7F003E264E /* kfbxconstraintrotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintrotation.h; sourceTree = "<group>"; };
+		7963359013C7EF7F003E264E /* kfbxconstraintscale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintscale.h; sourceTree = "<group>"; };
+		7963359113C7EF7F003E264E /* kfbxconstraintsinglechainik.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxconstraintsinglechainik.h; sourceTree = "<group>"; };
+		7963359213C7EF7F003E264E /* kfbxcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcontainer.h; sourceTree = "<group>"; };
+		7963359313C7EF7F003E264E /* kfbxcontainertemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxcontainertemplate.h; sourceTree = "<group>"; };
+		7963359413C7EF7F003E264E /* kfbxdatatypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxdatatypes.h; sourceTree = "<group>"; };
+		7963359513C7EF7F003E264E /* kfbxdeformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxdeformer.h; sourceTree = "<group>"; };
+		7963359613C7EF7F003E264E /* kfbxdisplaylayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxdisplaylayer.h; sourceTree = "<group>"; };
+		7963359713C7EF7F003E264E /* kfbxentryview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxentryview.h; sourceTree = "<group>"; };
+		7963359813C7EF7F003E264E /* kfbxexposurecontrol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxexposurecontrol.h; sourceTree = "<group>"; };
+		7963359913C7EF7F003E264E /* kfbxfiletexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxfiletexture.h; sourceTree = "<group>"; };
+		7963359A13C7EF7F003E264E /* kfbxgenericnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgenericnode.h; sourceTree = "<group>"; };
+		7963359B13C7EF7F003E264E /* kfbxgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgeometry.h; sourceTree = "<group>"; };
+		7963359C13C7EF7F003E264E /* kfbxgeometrybase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgeometrybase.h; sourceTree = "<group>"; };
+		7963359D13C7EF7F003E264E /* kfbxgeometryconverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgeometryconverter.h; sourceTree = "<group>"; };
+		7963359E13C7EF7F003E264E /* kfbxgeometryweightedmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgeometryweightedmap.h; sourceTree = "<group>"; };
+		7963359F13C7EF7F003E264E /* kfbxglobalcamerasettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxglobalcamerasettings.h; sourceTree = "<group>"; };
+		796335A013C7EF7F003E264E /* kfbxgloballightsettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgloballightsettings.h; sourceTree = "<group>"; };
+		796335A113C7EF7F003E264E /* kfbxglobalsettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxglobalsettings.h; sourceTree = "<group>"; };
+		796335A213C7EF7F003E264E /* kfbxglobaltimesettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxglobaltimesettings.h; sourceTree = "<group>"; };
+		796335A313C7EF7F003E264E /* kfbxgroupname.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxgroupname.h; sourceTree = "<group>"; };
+		796335A413C7EF7F003E264E /* kfbximplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbximplementation.h; sourceTree = "<group>"; };
+		796335A513C7EF7F003E264E /* kfbximplementationfilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbximplementationfilter.h; sourceTree = "<group>"; };
+		796335A613C7EF7F003E264E /* kfbximplementationutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbximplementationutils.h; sourceTree = "<group>"; };
+		796335A713C7EF7F003E264E /* kfbxiopluginregistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxiopluginregistry.h; sourceTree = "<group>"; };
+		796335A813C7EF7F003E264E /* kfbxkfcurvefilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxkfcurvefilters.h; sourceTree = "<group>"; };
+		796335A913C7EF7F003E264E /* kfbxlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlayer.h; sourceTree = "<group>"; };
+		796335AA13C7EF7F003E264E /* kfbxlayercontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlayercontainer.h; sourceTree = "<group>"; };
+		796335AB13C7EF7F003E264E /* kfbxlayeredtexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlayeredtexture.h; sourceTree = "<group>"; };
+		796335AC13C7EF7F003E264E /* kfbxlibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlibrary.h; sourceTree = "<group>"; };
+		796335AD13C7EF7F003E264E /* kfbxlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlight.h; sourceTree = "<group>"; };
+		796335AE13C7EF7F003E264E /* kfbxlimitsutilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlimitsutilities.h; sourceTree = "<group>"; };
+		796335AF13C7EF7F003E264E /* kfbxline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxline.h; sourceTree = "<group>"; };
+		796335B013C7EF7F003E264E /* kfbxlodgroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxlodgroup.h; sourceTree = "<group>"; };
+		796335B113C7EF7F003E264E /* kfbxmanipulators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmanipulators.h; sourceTree = "<group>"; };
+		796335B213C7EF7F003E264E /* kfbxmarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmarker.h; sourceTree = "<group>"; };
+		796335B313C7EF7F003E264E /* kfbxmaterialconverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmaterialconverter.h; sourceTree = "<group>"; };
+		796335B413C7EF7F003E264E /* kfbxmemoryallocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmemoryallocator.h; sourceTree = "<group>"; };
+		796335B513C7EF7F003E264E /* kfbxmesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxmesh.h; sourceTree = "<group>"; };
+		796335B613C7EF7F003E264E /* kfbxnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnode.h; sourceTree = "<group>"; };
+		796335B713C7EF7F003E264E /* kfbxnodeattribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnodeattribute.h; sourceTree = "<group>"; };
+		796335B813C7EF7F003E264E /* kfbxnodelimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnodelimits.h; sourceTree = "<group>"; };
+		796335B913C7EF7F003E264E /* kfbxnull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnull.h; sourceTree = "<group>"; };
+		796335BA13C7EF7F003E264E /* kfbxnurb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnurb.h; sourceTree = "<group>"; };
+		796335BB13C7EF7F003E264E /* kfbxnurbscurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnurbscurve.h; sourceTree = "<group>"; };
+		796335BC13C7EF7F003E264E /* kfbxnurbssurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxnurbssurface.h; sourceTree = "<group>"; };
+		796335BD13C7EF7F003E264E /* kfbxobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxobject.h; sourceTree = "<group>"; };
+		796335BE13C7EF7F003E264E /* kfbxobjectfilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxobjectfilter.h; sourceTree = "<group>"; };
+		796335BF13C7EF7F003E264E /* kfbxobjectmetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxobjectmetadata.h; sourceTree = "<group>"; };
+		796335C013C7EF7F003E264E /* kfbxoperatorentryview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxoperatorentryview.h; sourceTree = "<group>"; };
+		796335C113C7EF7F003E264E /* kfbxopticalreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxopticalreference.h; sourceTree = "<group>"; };
+		796335C213C7EF7F003E264E /* kfbxpatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxpatch.h; sourceTree = "<group>"; };
+		796335C313C7EF7F003E264E /* kfbxperipheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxperipheral.h; sourceTree = "<group>"; };
+		796335C413C7EF7F003E264E /* kfbxplug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxplug.h; sourceTree = "<group>"; };
+		796335C513C7EF7F003E264E /* kfbxpose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxpose.h; sourceTree = "<group>"; };
+		796335C613C7EF7F003E264E /* kfbxproceduralgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxproceduralgeometry.h; sourceTree = "<group>"; };
+		796335C713C7EF7F003E264E /* kfbxproceduraltexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxproceduraltexture.h; sourceTree = "<group>"; };
+		796335C813C7EF7F003E264E /* kfbxproperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxproperty.h; sourceTree = "<group>"; };
+		796335C913C7EF7F003E264E /* kfbxpropertyentryview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxpropertyentryview.h; sourceTree = "<group>"; };
+		796335CA13C7EF7F003E264E /* kfbxreference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxreference.h; sourceTree = "<group>"; };
+		796335CB13C7EF7F003E264E /* kfbxrenamingstrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxrenamingstrategy.h; sourceTree = "<group>"; };
+		796335CC13C7EF7F003E264E /* kfbxrenamingstrategybase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxrenamingstrategybase.h; sourceTree = "<group>"; };
+		796335CD13C7EF7F003E264E /* kfbxrenamingstrategyfbx5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxrenamingstrategyfbx5.h; sourceTree = "<group>"; };
+		796335CE13C7EF7F003E264E /* kfbxrenamingstrategyfbx6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxrenamingstrategyfbx6.h; sourceTree = "<group>"; };
+		796335CF13C7EF7F003E264E /* kfbxrenamingstrategyutilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxrenamingstrategyutilities.h; sourceTree = "<group>"; };
+		796335D013C7EF7F003E264E /* kfbxrootnodeutility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxrootnodeutility.h; sourceTree = "<group>"; };
+		796335D113C7EF7F003E264E /* kfbxscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxscene.h; sourceTree = "<group>"; };
+		796335D213C7EF7F003E264E /* kfbxsdkmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsdkmanager.h; sourceTree = "<group>"; };
+		796335D313C7EF7F003E264E /* kfbxselectionnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxselectionnode.h; sourceTree = "<group>"; };
+		796335D413C7EF7F003E264E /* kfbxselectionset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxselectionset.h; sourceTree = "<group>"; };
+		796335D513C7EF7F003E264E /* kfbxsemanticentryview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsemanticentryview.h; sourceTree = "<group>"; };
+		796335D613C7EF7F003E264E /* kfbxshape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxshape.h; sourceTree = "<group>"; };
+		796335D713C7EF7F003E264E /* kfbxskeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxskeleton.h; sourceTree = "<group>"; };
+		796335D813C7EF7F003E264E /* kfbxskin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxskin.h; sourceTree = "<group>"; };
+		796335D913C7EF7F003E264E /* kfbxstatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxstatistics.h; sourceTree = "<group>"; };
+		796335DA13C7EF7F003E264E /* kfbxstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxstream.h; sourceTree = "<group>"; };
+		796335DB13C7EF7F003E264E /* kfbxsubdeformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsubdeformer.h; sourceTree = "<group>"; };
+		796335DC13C7EF7F003E264E /* kfbxsubdiv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsubdiv.h; sourceTree = "<group>"; };
+		796335DD13C7EF7F003E264E /* kfbxsurfacelambert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsurfacelambert.h; sourceTree = "<group>"; };
+		796335DE13C7EF7F003E264E /* kfbxsurfacematerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsurfacematerial.h; sourceTree = "<group>"; };
+		796335DF13C7EF7F003E264E /* kfbxsurfacephong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsurfacephong.h; sourceTree = "<group>"; };
+		796335E013C7EF7F003E264E /* kfbxsystemunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxsystemunit.h; sourceTree = "<group>"; };
+		796335E113C7EF7F003E264E /* kfbxtakeinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxtakeinfo.h; sourceTree = "<group>"; };
+		796335E213C7EF7F003E264E /* kfbxtexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxtexture.h; sourceTree = "<group>"; };
+		796335E313C7EF7F003E264E /* kfbxthumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxthumbnail.h; sourceTree = "<group>"; };
+		796335E413C7EF7F003E264E /* kfbxtrimnurbssurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxtrimnurbssurface.h; sourceTree = "<group>"; };
+		796335E513C7EF7F003E264E /* kfbxtypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxtypes.h; sourceTree = "<group>"; };
+		796335E613C7EF7F003E264E /* kfbxusernotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxusernotification.h; sourceTree = "<group>"; };
+		796335E713C7EF7F003E264E /* kfbxutilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxutilities.h; sourceTree = "<group>"; };
+		796335E813C7EF7F003E264E /* kfbxvertexcachedeformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxvertexcachedeformer.h; sourceTree = "<group>"; };
+		796335E913C7EF7F003E264E /* kfbxvideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxvideo.h; sourceTree = "<group>"; };
+		796335EA13C7EF7F003E264E /* kfbxweightedmapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfbxweightedmapping.h; sourceTree = "<group>"; };
+		796335EB13C7EF7F003E264E /* fbxsdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fbxsdk.h; sourceTree = "<group>"; };
+		796335EF13C7EF7F003E264E /* libfbxsdk-2012.1-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libfbxsdk-2012.1-static.a"; sourceTree = "<group>"; };
+		796335F013C7EF7F003E264E /* libfbxsdk-2012.1-staticd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libfbxsdk-2012.1-staticd.a"; sourceTree = "<group>"; };
+		796335F113C7EF7F003E264E /* libfbxsdk-2012.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libfbxsdk-2012.1.dylib"; sourceTree = "<group>"; };
+		796335F213C7EF7F003E264E /* libfbxsdk-2012.1d.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libfbxsdk-2012.1d.dylib"; sourceTree = "<group>"; };
+		79703CBD140F0713001A80B8 /* DTSShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSShape.cpp; sourceTree = "<group>"; };
+		7979A8EC14103A95006E4F7B /* DTS2FBX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTS2FBX.cpp; sourceTree = "<group>"; };
+		7979A8EF14103B17006E4F7B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		7979A8F114103B41006E4F7B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		7979A8F3141042E2006E4F7B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		796334D013C7EEB8003E264E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7979A8F014103B17006E4F7B /* CoreFoundation.framework in Frameworks */,
+				7979A8F214103B41006E4F7B /* CoreServices.framework in Frameworks */,
+				7979A8F4141042E2006E4F7B /* SystemConfiguration.framework in Frameworks */,
+				79F91827141D3BBC00BF4094 /* libfbxsdk-2012.1-static.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		790F9C8A141D3443000C032D /* System Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7979A8F3141042E2006E4F7B /* SystemConfiguration.framework */,
+				7979A8F114103B41006E4F7B /* CoreServices.framework */,
+				7979A8EF14103B17006E4F7B /* CoreFoundation.framework */,
+			);
+			name = "System Frameworks";
+			sourceTree = "<group>";
+		};
+		796334C813C7EEB7003E264E = {
+			isa = PBXGroup;
+			children = (
+				790F9C8A141D3443000C032D /* System Frameworks */,
+				796335F713C7EF99003E264E /* FBX SDK */,
+				796334D713C7EEB8003E264E /* main.cpp */,
+				7957D2D4140DCEB8003EEAC4 /* DTSBase.cpp */,
+				7957D2D2140DCE27003EEAC4 /* DTSBase.h */,
+				79703CBD140F0713001A80B8 /* DTSShape.cpp */,
+				7957D2D3140DCE65003EEAC4 /* DTSShape.h */,
+				7957D2D1140DCE00003EEAC4 /* DTSTypes.h */,
+				7979A8EC14103A95006E4F7B /* DTS2FBX.cpp */,
+				796334D413C7EEB8003E264E /* Output */,
+			);
+			sourceTree = "<group>";
+		};
+		796334D413C7EEB8003E264E /* Output */ = {
+			isa = PBXGroup;
+			children = (
+				796334D313C7EEB8003E264E /* dts2fbx */,
+			);
+			name = Output;
+			sourceTree = "<group>";
+		};
+		796334DF13C7EF7F003E264E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				796334E013C7EF7F003E264E /* fbxfilesdk */,
+				796335EB13C7EF7F003E264E /* fbxsdk.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		796334E013C7EF7F003E264E /* fbxfilesdk */ = {
+			isa = PBXGroup;
+			children = (
+				796334E113C7EF7F003E264E /* components */,
+				7963352613C7EF7F003E264E /* fbxcore */,
+				7963353513C7EF7F003E264E /* fbxfilesdk_def.h */,
+				7963353613C7EF7F003E264E /* fbxfilesdk_memory.h */,
+				7963353713C7EF7F003E264E /* fbxfilesdk_new.h */,
+				7963353813C7EF7F003E264E /* fbxfilesdk_nsbegin.h */,
+				7963353913C7EF7F003E264E /* fbxfilesdk_nsend.h */,
+				7963353A13C7EF7F003E264E /* fbxfilesdk_nsuse.h */,
+				7963353B13C7EF7F003E264E /* fbxfilesdk_version.h */,
+				7963353C13C7EF7F003E264E /* fbxprocessors */,
+				7963354413C7EF7F003E264E /* kfbxcharacter */,
+				7963354813C7EF7F003E264E /* kfbxevents */,
+				7963354E13C7EF7F003E264E /* kfbxio */,
+				7963355B13C7EF7F003E264E /* kfbxmath */,
+				7963356313C7EF7F003E264E /* kfbxmodules */,
+				7963356B13C7EF7F003E264E /* kfbxmp */,
+				7963356D13C7EF7F003E264E /* kfbxplugins */,
+			);
+			path = fbxfilesdk;
+			sourceTree = "<group>";
+		};
+		796334E113C7EF7F003E264E /* components */ = {
+			isa = PBXGroup;
+			children = (
+				796334E213C7EF7F003E264E /* kbaselib */,
+				7963350413C7EF7F003E264E /* kcharacterdef */,
+				7963350613C7EF7F003E264E /* kfcurve */,
+				7963350B13C7EF7F003E264E /* libxml2-2.6.4 */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		796334E213C7EF7F003E264E /* kbaselib */ = {
+			isa = PBXGroup;
+			children = (
+				796334E313C7EF7F003E264E /* isocpp_conformant.h */,
+				796334E413C7EF7F003E264E /* karch */,
+				796334E713C7EF7F003E264E /* kfbx */,
+				796334E913C7EF7F003E264E /* klib */,
+				7963350013C7EF7F003E264E /* object */,
+			);
+			path = kbaselib;
+			sourceTree = "<group>";
+		};
+		796334E413C7EF7F003E264E /* karch */ = {
+			isa = PBXGroup;
+			children = (
+				796334E513C7EF7F003E264E /* arch.h */,
+				796334E613C7EF7F003E264E /* types.h */,
+			);
+			path = karch;
+			sourceTree = "<group>";
+		};
+		796334E713C7EF7F003E264E /* kfbx */ = {
+			isa = PBXGroup;
+			children = (
+				796334E813C7EF7F003E264E /* kfbx.h */,
+			);
+			path = kfbx;
+			sourceTree = "<group>";
+		};
+		796334E913C7EF7F003E264E /* klib */ = {
+			isa = PBXGroup;
+			children = (
+				796334EA13C7EF7F003E264E /* karrayul.h */,
+				796334EB13C7EF7F003E264E /* kcharptrset.h */,
+				796334EC13C7EF7F003E264E /* kcontainerallocators.h */,
+				796334ED13C7EF7F003E264E /* kdebug.h */,
+				796334EE13C7EF7F003E264E /* kdynamicarray.h */,
+				796334EF13C7EF7F003E264E /* kerror.h */,
+				796334F013C7EF7F003E264E /* kintrusivelist.h */,
+				796334F113C7EF7F003E264E /* kmap.h */,
+				796334F213C7EF7F003E264E /* kmemory.h */,
+				796334F313C7EF7F003E264E /* kname.h */,
+				796334F413C7EF7F003E264E /* kpair.h */,
+				796334F513C7EF7F003E264E /* krenamingstrategy.h */,
+				796334F613C7EF7F003E264E /* kscopedptr.h */,
+				796334F713C7EF7F003E264E /* kset.h */,
+				796334F813C7EF7F003E264E /* kstring.h */,
+				796334F913C7EF7F003E264E /* kstringlist.h */,
+				796334FA13C7EF7F003E264E /* ksystemtime.h */,
+				796334FB13C7EF7F003E264E /* ktime.h */,
+				796334FC13C7EF7F003E264E /* t-str-linux.h */,
+				796334FD13C7EF7F003E264E /* t-str-macosx.h */,
+				796334FE13C7EF7F003E264E /* t-str-win32.h */,
+				796334FF13C7EF7F003E264E /* t-str.h */,
+			);
+			path = klib;
+			sourceTree = "<group>";
+		};
+		7963350013C7EF7F003E264E /* object */ = {
+			isa = PBXGroup;
+			children = (
+				7963350113C7EF7F003E264E /* e */,
+				7963350313C7EF7F003E264E /* klibrary.h */,
+			);
+			path = object;
+			sourceTree = "<group>";
+		};
+		7963350113C7EF7F003E264E /* e */ = {
+			isa = PBXGroup;
+			children = (
+				7963350213C7EF7F003E264E /* keventbase.h */,
+			);
+			path = e;
+			sourceTree = "<group>";
+		};
+		7963350413C7EF7F003E264E /* kcharacterdef */ = {
+			isa = PBXGroup;
+			children = (
+				7963350513C7EF7F003E264E /* kfiltersetenum.h */,
+			);
+			path = kcharacterdef;
+			sourceTree = "<group>";
+		};
+		7963350613C7EF7F003E264E /* kfcurve */ = {
+			isa = PBXGroup;
+			children = (
+				7963350713C7EF7F003E264E /* kfcurve.h */,
+				7963350813C7EF7F003E264E /* kfcurveglobal.h */,
+				7963350913C7EF7F003E264E /* kfcurvenode.h */,
+				7963350A13C7EF7F003E264E /* kfcurveutils.h */,
+			);
+			path = kfcurve;
+			sourceTree = "<group>";
+		};
+		7963350B13C7EF7F003E264E /* libxml2-2.6.4 */ = {
+			isa = PBXGroup;
+			children = (
+				7963350C13C7EF7F003E264E /* include */,
+				7963352313C7EF7F003E264E /* libxml.h */,
+				7963352413C7EF7F003E264E /* trio.h */,
+				7963352513C7EF7F003E264E /* triodef.h */,
+			);
+			path = "libxml2-2.6.4";
+			sourceTree = "<group>";
+		};
+		7963350C13C7EF7F003E264E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				7963350D13C7EF7F003E264E /* libxml */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		7963350D13C7EF7F003E264E /* libxml */ = {
+			isa = PBXGroup;
+			children = (
+				7963350E13C7EF7F003E264E /* config.h */,
+				7963350F13C7EF7F003E264E /* dict.h */,
+				7963351013C7EF7F003E264E /* encoding.h */,
+				7963351113C7EF7F003E264E /* entities.h */,
+				7963351213C7EF7F003E264E /* globals.h */,
+				7963351313C7EF7F003E264E /* hash.h */,
+				7963351413C7EF7F003E264E /* list.h */,
+				7963351513C7EF7F003E264E /* parser.h */,
+				7963351613C7EF7F003E264E /* SAX.h */,
+				7963351713C7EF7F003E264E /* SAX2.h */,
+				7963351813C7EF7F003E264E /* threads.h */,
+				7963351913C7EF7F003E264E /* tree.h */,
+				7963351A13C7EF7F003E264E /* valid.h */,
+				7963351B13C7EF7F003E264E /* xlink.h */,
+				7963351C13C7EF7F003E264E /* xmlautomata.h */,
+				7963351D13C7EF7F003E264E /* xmlerror.h */,
+				7963351E13C7EF7F003E264E /* xmlexports.h */,
+				7963351F13C7EF7F003E264E /* xmlIO.h */,
+				7963352013C7EF7F003E264E /* xmlmemory.h */,
+				7963352113C7EF7F003E264E /* xmlregexp.h */,
+				7963352213C7EF7F003E264E /* xmlversion.h */,
+			);
+			path = libxml;
+			sourceTree = "<group>";
+		};
+		7963352613C7EF7F003E264E /* fbxcore */ = {
+			isa = PBXGroup;
+			children = (
+				7963352713C7EF7F003E264E /* fbxcollection */,
+				7963352D13C7EF7F003E264E /* fbxxref */,
+				7963353213C7EF7F003E264E /* kfbxpropertydef.h */,
+				7963353313C7EF7F003E264E /* kfbxpropertyhandle.h */,
+				7963353413C7EF7F003E264E /* kfbxquery.h */,
+			);
+			path = fbxcore;
+			sourceTree = "<group>";
+		};
+		7963352713C7EF7F003E264E /* fbxcollection */ = {
+			isa = PBXGroup;
+			children = (
+				7963352813C7EF7F003E264E /* kfbxcollection.h */,
+				7963352913C7EF7F003E264E /* kfbxcollectionexclusive.h */,
+				7963352A13C7EF7F003E264E /* kfbxdocument.h */,
+				7963352B13C7EF7F003E264E /* kfbxdocumentinfo.h */,
+				7963352C13C7EF7F003E264E /* kfbxpropertymap.h */,
+			);
+			path = fbxcollection;
+			sourceTree = "<group>";
+		};
+		7963352D13C7EF7F003E264E /* fbxxref */ = {
+			isa = PBXGroup;
+			children = (
+				7963352E13C7EF7F003E264E /* fbxxref.h */,
+				7963352F13C7EF7F003E264E /* fbxxref_def.h */,
+				7963353013C7EF7F003E264E /* fbxxref_module.h */,
+				7963353113C7EF7F003E264E /* kfbxref.h */,
+			);
+			path = fbxxref;
+			sourceTree = "<group>";
+		};
+		7963353C13C7EF7F003E264E /* fbxprocessors */ = {
+			isa = PBXGroup;
+			children = (
+				7963353D13C7EF7F003E264E /* fbxprocessors.h */,
+				7963353E13C7EF7F003E264E /* fbxprocessors_def.h */,
+				7963353F13C7EF7F003E264E /* fbxprocessors_module.h */,
+				7963354013C7EF7F003E264E /* kfbxembeddedfilesaccumulator.h */,
+				7963354113C7EF7F003E264E /* kfbxprocessor.h */,
+				7963354213C7EF7F003E264E /* kfbxprocessorxref.h */,
+				7963354313C7EF7F003E264E /* kfbxprocessorxrefuserlib.h */,
+			);
+			path = fbxprocessors;
+			sourceTree = "<group>";
+		};
+		7963354413C7EF7F003E264E /* kfbxcharacter */ = {
+			isa = PBXGroup;
+			children = (
+				7963354513C7EF7F003E264E /* kfbxcharacter.h */,
+				7963354613C7EF7F003E264E /* kfbxcharacterpose.h */,
+				7963354713C7EF7F003E264E /* kfbxcontrolset.h */,
+			);
+			path = kfbxcharacter;
+			sourceTree = "<group>";
+		};
+		7963354813C7EF7F003E264E /* kfbxevents */ = {
+			isa = PBXGroup;
+			children = (
+				7963354913C7EF7F003E264E /* includes.h */,
+				7963354A13C7EF7F003E264E /* kfbxemitter.h */,
+				7963354B13C7EF7F003E264E /* kfbxeventhandler.h */,
+				7963354C13C7EF7F003E264E /* kfbxevents.h */,
+				7963354D13C7EF7F003E264E /* kfbxlistener.h */,
+			);
+			path = kfbxevents;
+			sourceTree = "<group>";
+		};
+		7963354E13C7EF7F003E264E /* kfbxio */ = {
+			isa = PBXGroup;
+			children = (
+				7963354F13C7EF7F003E264E /* kfbxexporter.h */,
+				7963355013C7EF7F003E264E /* kfbxexternaldocreflistener.h */,
+				7963355113C7EF7F003E264E /* kfbxfiletokenfbx.h */,
+				7963355213C7EF7F003E264E /* kfbxgobo.h */,
+				7963355313C7EF7F003E264E /* kfbximporter.h */,
+				7963355413C7EF7F003E264E /* kfbxio.h */,
+				7963355513C7EF7F003E264E /* kfbxiosettings.h */,
+				7963355613C7EF7F003E264E /* kfbxiosettingspath.h */,
+				7963355713C7EF7F003E264E /* kfbxprogress.h */,
+				7963355813C7EF7F003E264E /* kfbxreader.h */,
+				7963355913C7EF7F003E264E /* kfbxstatisticsfbx.h */,
+				7963355A13C7EF7F003E264E /* kfbxwriter.h */,
+			);
+			path = kfbxio;
+			sourceTree = "<group>";
+		};
+		7963355B13C7EF7F003E264E /* kfbxmath */ = {
+			isa = PBXGroup;
+			children = (
+				7963355C13C7EF7F003E264E /* kfbxdualquaternion.h */,
+				7963355D13C7EF7F003E264E /* kfbxmatrix.h */,
+				7963355E13C7EF7F003E264E /* kfbxquaternion.h */,
+				7963355F13C7EF7F003E264E /* kfbxtransformation.h */,
+				7963356013C7EF7F003E264E /* kfbxvector2.h */,
+				7963356113C7EF7F003E264E /* kfbxvector4.h */,
+				7963356213C7EF7F003E264E /* kfbxxmatrix.h */,
+			);
+			path = kfbxmath;
+			sourceTree = "<group>";
+		};
+		7963356313C7EF7F003E264E /* kfbxmodules */ = {
+			isa = PBXGroup;
+			children = (
+				7963356413C7EF7F003E264E /* includes.h */,
+				7963356513C7EF7F003E264E /* kfbxloadingstrategy.h */,
+				7963356613C7EF7F003E264E /* kfbxplugin.h */,
+				7963356713C7EF7F003E264E /* kfbxplugincontainer.h */,
+				7963356813C7EF7F003E264E /* kfbxqueryevent.h */,
+				7963356913C7EF7F003E264E /* kfbxscopedloadingdirectory.h */,
+				7963356A13C7EF7F003E264E /* kfbxscopedloadingfilename.h */,
+			);
+			path = kfbxmodules;
+			sourceTree = "<group>";
+		};
+		7963356B13C7EF7F003E264E /* kfbxmp */ = {
+			isa = PBXGroup;
+			children = (
+				7963356C13C7EF7F003E264E /* kfbxmutex.h */,
+			);
+			path = kfbxmp;
+			sourceTree = "<group>";
+		};
+		7963356D13C7EF7F003E264E /* kfbxplugins */ = {
+			isa = PBXGroup;
+			children = (
+				7963356E13C7EF7F003E264E /* conventions.h */,
+				7963356F13C7EF7F003E264E /* kfbxanimcurve.h */,
+				7963357013C7EF7F003E264E /* kfbxanimcurvebase.h */,
+				7963357113C7EF7F003E264E /* kfbxanimcurvefilters.h */,
+				7963357213C7EF7F003E264E /* kfbxanimcurvekfcurve.h */,
+				7963357313C7EF7F003E264E /* kfbxanimcurvenode.h */,
+				7963357413C7EF7F003E264E /* kfbxanimevalclassic.h */,
+				7963357513C7EF7F003E264E /* kfbxanimevalstate.h */,
+				7963357613C7EF7F003E264E /* kfbxanimevaluator.h */,
+				7963357713C7EF7F003E264E /* kfbxanimlayer.h */,
+				7963357813C7EF7F003E264E /* kfbxanimstack.h */,
+				7963357913C7EF7F003E264E /* kfbxaxissystem.h */,
+				7963357A13C7EF7F003E264E /* kfbxbindingoperator.h */,
+				7963357B13C7EF7F003E264E /* kfbxbindingsentryview.h */,
+				7963357C13C7EF7F003E264E /* kfbxbindingtable.h */,
+				7963357D13C7EF7F003E264E /* kfbxbindingtablebase.h */,
+				7963357E13C7EF7F003E264E /* kfbxbindingtableentry.h */,
+				7963357F13C7EF7F003E264E /* kfbxblendshape.h */,
+				7963358013C7EF7F003E264E /* kfbxblendshapechannel.h */,
+				7963358113C7EF7F003E264E /* kfbxcache.h */,
+				7963358213C7EF7F003E264E /* kfbxcachedeffect.h */,
+				7963358313C7EF7F003E264E /* kfbxcamera.h */,
+				7963358413C7EF7F003E264E /* kfbxcamerastereo.h */,
+				7963358513C7EF7F003E264E /* kfbxcameraswitcher.h */,
+				7963358613C7EF7F003E264E /* kfbxclonemanager.h */,
+				7963358713C7EF7F003E264E /* kfbxcluster.h */,
+				7963358813C7EF7F003E264E /* kfbxcolor.h */,
+				7963358913C7EF7F003E264E /* kfbxconstantentryview.h */,
+				7963358A13C7EF7F003E264E /* kfbxconstraint.h */,
+				7963358B13C7EF7F003E264E /* kfbxconstraintaim.h */,
+				7963358C13C7EF7F003E264E /* kfbxconstraintcustom.h */,
+				7963358D13C7EF7F003E264E /* kfbxconstraintparent.h */,
+				7963358E13C7EF7F003E264E /* kfbxconstraintposition.h */,
+				7963358F13C7EF7F003E264E /* kfbxconstraintrotation.h */,
+				7963359013C7EF7F003E264E /* kfbxconstraintscale.h */,
+				7963359113C7EF7F003E264E /* kfbxconstraintsinglechainik.h */,
+				7963359213C7EF7F003E264E /* kfbxcontainer.h */,
+				7963359313C7EF7F003E264E /* kfbxcontainertemplate.h */,
+				7963359413C7EF7F003E264E /* kfbxdatatypes.h */,
+				7963359513C7EF7F003E264E /* kfbxdeformer.h */,
+				7963359613C7EF7F003E264E /* kfbxdisplaylayer.h */,
+				7963359713C7EF7F003E264E /* kfbxentryview.h */,
+				7963359813C7EF7F003E264E /* kfbxexposurecontrol.h */,
+				7963359913C7EF7F003E264E /* kfbxfiletexture.h */,
+				7963359A13C7EF7F003E264E /* kfbxgenericnode.h */,
+				7963359B13C7EF7F003E264E /* kfbxgeometry.h */,
+				7963359C13C7EF7F003E264E /* kfbxgeometrybase.h */,
+				7963359D13C7EF7F003E264E /* kfbxgeometryconverter.h */,
+				7963359E13C7EF7F003E264E /* kfbxgeometryweightedmap.h */,
+				7963359F13C7EF7F003E264E /* kfbxglobalcamerasettings.h */,
+				796335A013C7EF7F003E264E /* kfbxgloballightsettings.h */,
+				796335A113C7EF7F003E264E /* kfbxglobalsettings.h */,
+				796335A213C7EF7F003E264E /* kfbxglobaltimesettings.h */,
+				796335A313C7EF7F003E264E /* kfbxgroupname.h */,
+				796335A413C7EF7F003E264E /* kfbximplementation.h */,
+				796335A513C7EF7F003E264E /* kfbximplementationfilter.h */,
+				796335A613C7EF7F003E264E /* kfbximplementationutils.h */,
+				796335A713C7EF7F003E264E /* kfbxiopluginregistry.h */,
+				796335A813C7EF7F003E264E /* kfbxkfcurvefilters.h */,
+				796335A913C7EF7F003E264E /* kfbxlayer.h */,
+				796335AA13C7EF7F003E264E /* kfbxlayercontainer.h */,
+				796335AB13C7EF7F003E264E /* kfbxlayeredtexture.h */,
+				796335AC13C7EF7F003E264E /* kfbxlibrary.h */,
+				796335AD13C7EF7F003E264E /* kfbxlight.h */,
+				796335AE13C7EF7F003E264E /* kfbxlimitsutilities.h */,
+				796335AF13C7EF7F003E264E /* kfbxline.h */,
+				796335B013C7EF7F003E264E /* kfbxlodgroup.h */,
+				796335B113C7EF7F003E264E /* kfbxmanipulators.h */,
+				796335B213C7EF7F003E264E /* kfbxmarker.h */,
+				796335B313C7EF7F003E264E /* kfbxmaterialconverter.h */,
+				796335B413C7EF7F003E264E /* kfbxmemoryallocator.h */,
+				796335B513C7EF7F003E264E /* kfbxmesh.h */,
+				796335B613C7EF7F003E264E /* kfbxnode.h */,
+				796335B713C7EF7F003E264E /* kfbxnodeattribute.h */,
+				796335B813C7EF7F003E264E /* kfbxnodelimits.h */,
+				796335B913C7EF7F003E264E /* kfbxnull.h */,
+				796335BA13C7EF7F003E264E /* kfbxnurb.h */,
+				796335BB13C7EF7F003E264E /* kfbxnurbscurve.h */,
+				796335BC13C7EF7F003E264E /* kfbxnurbssurface.h */,
+				796335BD13C7EF7F003E264E /* kfbxobject.h */,
+				796335BE13C7EF7F003E264E /* kfbxobjectfilter.h */,
+				796335BF13C7EF7F003E264E /* kfbxobjectmetadata.h */,
+				796335C013C7EF7F003E264E /* kfbxoperatorentryview.h */,
+				796335C113C7EF7F003E264E /* kfbxopticalreference.h */,
+				796335C213C7EF7F003E264E /* kfbxpatch.h */,
+				796335C313C7EF7F003E264E /* kfbxperipheral.h */,
+				796335C413C7EF7F003E264E /* kfbxplug.h */,
+				796335C513C7EF7F003E264E /* kfbxpose.h */,
+				796335C613C7EF7F003E264E /* kfbxproceduralgeometry.h */,
+				796335C713C7EF7F003E264E /* kfbxproceduraltexture.h */,
+				796335C813C7EF7F003E264E /* kfbxproperty.h */,
+				796335C913C7EF7F003E264E /* kfbxpropertyentryview.h */,
+				796335CA13C7EF7F003E264E /* kfbxreference.h */,
+				796335CB13C7EF7F003E264E /* kfbxrenamingstrategy.h */,
+				796335CC13C7EF7F003E264E /* kfbxrenamingstrategybase.h */,
+				796335CD13C7EF7F003E264E /* kfbxrenamingstrategyfbx5.h */,
+				796335CE13C7EF7F003E264E /* kfbxrenamingstrategyfbx6.h */,
+				796335CF13C7EF7F003E264E /* kfbxrenamingstrategyutilities.h */,
+				796335D013C7EF7F003E264E /* kfbxrootnodeutility.h */,
+				796335D113C7EF7F003E264E /* kfbxscene.h */,
+				796335D213C7EF7F003E264E /* kfbxsdkmanager.h */,
+				796335D313C7EF7F003E264E /* kfbxselectionnode.h */,
+				796335D413C7EF7F003E264E /* kfbxselectionset.h */,
+				796335D513C7EF7F003E264E /* kfbxsemanticentryview.h */,
+				796335D613C7EF7F003E264E /* kfbxshape.h */,
+				796335D713C7EF7F003E264E /* kfbxskeleton.h */,
+				796335D813C7EF7F003E264E /* kfbxskin.h */,
+				796335D913C7EF7F003E264E /* kfbxstatistics.h */,
+				796335DA13C7EF7F003E264E /* kfbxstream.h */,
+				796335DB13C7EF7F003E264E /* kfbxsubdeformer.h */,
+				796335DC13C7EF7F003E264E /* kfbxsubdiv.h */,
+				796335DD13C7EF7F003E264E /* kfbxsurfacelambert.h */,
+				796335DE13C7EF7F003E264E /* kfbxsurfacematerial.h */,
+				796335DF13C7EF7F003E264E /* kfbxsurfacephong.h */,
+				796335E013C7EF7F003E264E /* kfbxsystemunit.h */,
+				796335E113C7EF7F003E264E /* kfbxtakeinfo.h */,
+				796335E213C7EF7F003E264E /* kfbxtexture.h */,
+				796335E313C7EF7F003E264E /* kfbxthumbnail.h */,
+				796335E413C7EF7F003E264E /* kfbxtrimnurbssurface.h */,
+				796335E513C7EF7F003E264E /* kfbxtypes.h */,
+				796335E613C7EF7F003E264E /* kfbxusernotification.h */,
+				796335E713C7EF7F003E264E /* kfbxutilities.h */,
+				796335E813C7EF7F003E264E /* kfbxvertexcachedeformer.h */,
+				796335E913C7EF7F003E264E /* kfbxvideo.h */,
+				796335EA13C7EF7F003E264E /* kfbxweightedmapping.h */,
+			);
+			path = kfbxplugins;
+			sourceTree = "<group>";
+		};
+		796335EC13C7EF7F003E264E /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				796335ED13C7EF7F003E264E /* gcc4 */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		796335ED13C7EF7F003E264E /* gcc4 */ = {
+			isa = PBXGroup;
+			children = (
+				796335EE13C7EF7F003E264E /* ub */,
+			);
+			path = gcc4;
+			sourceTree = "<group>";
+		};
+		796335EE13C7EF7F003E264E /* ub */ = {
+			isa = PBXGroup;
+			children = (
+				796335EF13C7EF7F003E264E /* libfbxsdk-2012.1-static.a */,
+				796335F013C7EF7F003E264E /* libfbxsdk-2012.1-staticd.a */,
+				796335F113C7EF7F003E264E /* libfbxsdk-2012.1.dylib */,
+				796335F213C7EF7F003E264E /* libfbxsdk-2012.1d.dylib */,
+			);
+			path = ub;
+			sourceTree = "<group>";
+		};
+		796335F713C7EF99003E264E /* FBX SDK */ = {
+			isa = PBXGroup;
+			children = (
+				796334DF13C7EF7F003E264E /* include */,
+				796335EC13C7EF7F003E264E /* lib */,
+			);
+			name = "FBX SDK";
+			path = FBXSDK.2012.1;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		796334D213C7EEB8003E264E /* dts2fbx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 796334DC13C7EEB8003E264E /* Build configuration list for PBXNativeTarget "dts2fbx" */;
+			buildPhases = (
+				796334CF13C7EEB8003E264E /* Sources */,
+				796334D013C7EEB8003E264E /* Frameworks */,
+				796334D113C7EEB8003E264E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dts2fbx;
+			productName = dts2fbx;
+			productReference = 796334D313C7EEB8003E264E /* dts2fbx */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		796334CA13C7EEB7003E264E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = Innobec;
+			};
+			buildConfigurationList = 796334CD13C7EEB7003E264E /* Build configuration list for PBXProject "dts2fbx" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 796334C813C7EEB7003E264E;
+			productRefGroup = 796334D413C7EEB8003E264E /* Output */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				796334D213C7EEB8003E264E /* dts2fbx */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		796334CF13C7EEB8003E264E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				796334D813C7EEB8003E264E /* main.cpp in Sources */,
+				7957D2D5140DCEB8003EEAC4 /* DTSBase.cpp in Sources */,
+				79703CBE140F0713001A80B8 /* DTSShape.cpp in Sources */,
+				7979A8ED14103A95006E4F7B /* DTS2FBX.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		796334DA13C7EEB8003E264E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		796334DB13C7EEB8003E264E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		796334DD13C7EEB8003E264E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				HEADER_SEARCH_PATHS = FBXSDK.2012.1/include;
+				LIBRARY_SEARCH_PATHS = (
+					FBXSDK.2012.1/include,
+					"\"$(SRCROOT)/FBXSDK.2012.1/lib/gcc4/ub\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		796334DE13C7EEB8003E264E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				HEADER_SEARCH_PATHS = FBXSDK.2012.1/include;
+				LIBRARY_SEARCH_PATHS = (
+					FBXSDK.2012.1/include,
+					"\"$(SRCROOT)/FBXSDK.2012.1/lib/gcc4/ub\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		796334CD13C7EEB7003E264E /* Build configuration list for PBXProject "dts2fbx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				796334DA13C7EEB8003E264E /* Debug */,
+				796334DB13C7EEB8003E264E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		796334DC13C7EEB8003E264E /* Build configuration list for PBXNativeTarget "dts2fbx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				796334DD13C7EEB8003E264E /* Debug */,
+				796334DE13C7EEB8003E264E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 796334CA13C7EEB7003E264E /* Project object */;
+}

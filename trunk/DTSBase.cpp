@@ -346,7 +346,8 @@ void DTSBase::Read(DTSMesh& value)
 		ReadCheck();
     }
     
-	if (value.type == DTSMesh::T_Sorted) {
+	if (value.type == DTSMesh::T_Sorted)
+    {
 		int numCluster;
 		int numStartCluster;
 		int numFirstVerts;
@@ -379,6 +380,16 @@ void DTSBase::Read(DTSMesh& value)
 		ReadCheck();
 	}
 };
+
+void DTSBase::ReadRawTyped(FILE* file, std::string& string)
+{
+    int i, l = ReadRawTyped<int>(file);
+    
+    for (i = 0; i < l; i++)
+    {
+        string += ReadRawTyped<char>(file);
+    }
+}
 
 void DTSBase::ReadRawTyped(FILE* file, std::vector<bool>& booleanVector)
 {
@@ -414,7 +425,11 @@ void DTSBase::ReadRawTyped(FILE* file, std::vector<bool>& booleanVector)
 	}
 }
 
-DTSBase::DTSBase(FILE* file)
+DTSBase::DTSBase()
+{
+}
+
+void DTSBase::load(FILE* file)
 {
     dtsVersion = ReadRawTyped<int>(file);
     totalSize  = ReadRawTyped<int>(file);

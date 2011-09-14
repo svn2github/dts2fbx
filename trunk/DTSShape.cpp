@@ -32,8 +32,37 @@
 #include "DTSBase.h"
 #include "DTSShape.h"
 
-DTSShape::DTSShape(FILE* file) : DTSBase(file)
+DTSShape::DTSShape() :
+    numNodes              (0),
+    numObjects            (0),
+    numDecals             (0),
+    numSubshapes          (0),
+    numIFLmaterials       (0),
+    numNodeRotations      (0),
+    numNodeTranslations   (0),
+    numNodeScalesUniform  (0),
+    numNodeScalesAligned  (0),
+    numNodeScalesArbitrary(0),
+    numGroundFrames       (0),
+    numObjectStates       (0),
+    numDecalStates        (0),
+    numTriggers           (0),
+    numDetailLevels       (0),
+    numMeshes             (0),
+    numSkins              (0),
+    numNames              (0),
+
+    smallestSize       (0),
+    smallestDetailLevel(0),
+
+    radius    (0),
+    tubeRadius(0)
 {
+}
+
+void DTSShape::loadShapeFile(FILE* file)
+{
+    DTSBase::load(file);
     Read(numNodes);
     Read(numObjects);
     Read(numDecals);
@@ -47,7 +76,7 @@ DTSShape::DTSShape(FILE* file) : DTSBase(file)
         numNodeTranslations    = numNodeRotations;
         numNodeScalesUniform   = 0;
         numNodeScalesAligned   = 0;
-        numNodeScalesArbitrary = 0;      
+        numNodeScalesArbitrary = 0;
         numGroundFrames        = 0;
     }
     else
@@ -225,40 +254,9 @@ DTSShape::DTSShape(FILE* file) : DTSBase(file)
     names.resize(numNames);
     Read(names);
     ReadCheck();
-
-	int numSequences = ReadRawTyped<int>(file);
-
-	sequences.resize(numSequences);
-
-	for (size_t seq = 0 ; seq < sequences.size() ; seq++)
-	{
-		DTSSequence& p = sequences[seq];
-
-		p.nameIndex        = ReadRawTyped<int>(file);
-		p.flags            = ReadRawTyped<int>(file);
-		p.numKeyFrames     = ReadRawTyped<int>(file);
-		p.duration         = ReadRawTyped<float>(file);
-		p.priority         = ReadRawTyped<int>(file);
-		p.firstGroundFrame = ReadRawTyped<int>(file);
-		p.numGroundFrames  = ReadRawTyped<int>(file);
-		p.baseRotation     = ReadRawTyped<int>(file);
-		p.baseTranslation  = ReadRawTyped<int>(file);
-		p.baseScale        = ReadRawTyped<int>(file);
-		p.baseObjectState  = ReadRawTyped<int>(file);
-		p.baseDecalState   = ReadRawTyped<int>(file);
-		p.firstTrigger     = ReadRawTyped<int>(file);
-		p.numTriggers      = ReadRawTyped<int>(file);
-		p.toolBegin        = ReadRawTyped<float>(file);
-
-		ReadRawTyped(file, p.matters.rotation);
-		ReadRawTyped(file, p.matters.translation);
-		ReadRawTyped(file, p.matters.scale);
-		ReadRawTyped(file, p.matters.decal);
-		ReadRawTyped(file, p.matters.ifl);
-		ReadRawTyped(file, p.matters.vis);
-		ReadRawTyped(file, p.matters.frame);
-		ReadRawTyped(file, p.matters.matframe);
-	}
+    
+    // Sequences
+    loadSequences(file, false);
 
 	// Materials
 
@@ -289,6 +287,177 @@ DTSShape::DTSShape(FILE* file) : DTSBase(file)
 		(*mat).detailScale = ReadRawTyped<int>(file);
 	for (mat = materials.begin() ; mat != materials.end() ; mat++)
 		(*mat).reflection = ReadRawTyped<int>(file);
+}
+
+void DTSShape::loadSequences(FILE* file, bool dsq)
+{
+	int numSequences = ReadRawTyped<int>(file);
+    
+	sequences.resize(numSequences);
+    
+	for (size_t seq = 0 ; seq < sequences.size() ; seq++)
+	{
+		DTSSequence& p = sequences[seq];
+        
+        if (dsq)
+        {
+            std::string name;
+            
+            ReadRawTyped(file, name);
+        }
+        else
+        {
+            p.nameIndex = ReadRawTyped<int>(file);
+		}
+        
+        p.flags            = ReadRawTyped<int>(file);
+		p.numKeyFrames     = ReadRawTyped<int>(file);
+		p.duration         = ReadRawTyped<float>(file);
+		p.priority         = ReadRawTyped<int>(file);
+		p.firstGroundFrame = ReadRawTyped<int>(file);
+		p.numGroundFrames  = ReadRawTyped<int>(file);
+		p.baseRotation     = ReadRawTyped<int>(file);
+		p.baseTranslation  = ReadRawTyped<int>(file);
+		p.baseScale        = ReadRawTyped<int>(file);
+		p.baseObjectState  = ReadRawTyped<int>(file);
+		p.baseDecalState   = ReadRawTyped<int>(file);
+		p.firstTrigger     = ReadRawTyped<int>(file);
+		p.numTriggers      = ReadRawTyped<int>(file);
+		p.toolBegin        = ReadRawTyped<float>(file);
+        
+		ReadRawTyped(file, p.matters.rotation);
+		ReadRawTyped(file, p.matters.translation);
+		ReadRawTyped(file, p.matters.scale);
+		ReadRawTyped(file, p.matters.decal);
+		ReadRawTyped(file, p.matters.ifl);
+		ReadRawTyped(file, p.matters.vis);
+		ReadRawTyped(file, p.matters.frame);
+		ReadRawTyped(file, p.matters.matframe);
+	}
+}
+
+void DTSShape::loadSequenceFile(FILE* file)
+{
+    size_t index;
+    
+    dtsVersion = ReadRawTyped<int>(file);
+    
+    names.resize(numNames = ReadRawTyped<int>(file));
+    for (index = 0; index < names.size(); index++)
+    {
+        ReadRawTyped(file, names[index]);
+    }
+    
+    // Objects Export ?
+    ReadRawTyped<int>(file);
+    
+    numObjects = ReadRawTyped<int>(file);
+    
+    nodeRotations.resize(numNodeRotations = ReadRawTyped<int>(file));
+    
+    for (index = 0; index < nodeRotations.size(); index++)
+    {
+        Quaternion q;
+        
+        q.x = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.y = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.z = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.w = (float)ReadRawTyped<short>(file) / 32767.0f;
+        nodeRotations[index] = q;
+    }
+    
+    nodeTranslations.resize(numNodeTranslations = ReadRawTyped<int>(file));
+    
+    for (index = 0; index < nodeTranslations.size(); index++)
+    {
+        Point p;
+        
+        p.x = ReadRawTyped<float>(file);
+        p.y = ReadRawTyped<float>(file);
+        p.z = ReadRawTyped<float>(file);
+        nodeTranslations[index] = p;
+    }
+    
+    nodeScalesUniform.resize(numNodeScalesUniform = ReadRawTyped<int>(file));
+    
+    for (index = 0; index < nodeScalesUniform.size(); index++)
+    {
+        nodeScalesUniform.push_back(ReadRawTyped<float>(file));
+    }
+    
+    nodeScalesAligned.resize(numNodeScalesAligned = ReadRawTyped<int>(file));
+    
+    for (index = 0; index < nodeScalesAligned.size(); index++)
+    {
+        Point p;
+        
+        p.x = ReadRawTyped<float>(file);
+        p.y = ReadRawTyped<float>(file);
+        p.z = ReadRawTyped<float>(file);
+        nodeScalesAligned[index] = p;
+    }
+    
+    nodeScaleRotsArbitrary.resize(numNodeScalesArbitrary = ReadRawTyped<int>(file));
+    nodeScalesArbitrary   .resize(numNodeScalesArbitrary);
+    
+    for (index = 0; index < nodeScaleRotsArbitrary.size(); index++)
+    {
+        Quaternion q;
+        
+        q.x = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.y = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.z = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.w = (float)ReadRawTyped<short>(file) / 32767.0f;
+        nodeScaleRotsArbitrary[index] = q;
+    }
+    
+    for (index = 0; index < nodeScalesArbitrary.size(); index++)
+    {
+        Point p;
+        
+        p.x = ReadRawTyped<float>(file);
+        p.y = ReadRawTyped<float>(file);
+        p.z = ReadRawTyped<float>(file);
+        nodeScalesArbitrary[index] = p;
+    }
+    
+    groundTranslations.resize(numGroundFrames = ReadRawTyped<int>(file));
+    groundRotations   .resize(numGroundFrames);
+    
+    for (index = 0; index < groundTranslations.size(); index++)
+    {
+        Point p;
+        
+        p.x = ReadRawTyped<float>(file);
+        p.y = ReadRawTyped<float>(file);
+        p.z = ReadRawTyped<float>(file);
+        groundTranslations[index] = p;
+    }
+    
+    for (index = 0; index < groundRotations.size(); index++)
+    {
+        Quaternion q;
+        
+        q.x = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.y = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.z = (float)ReadRawTyped<short>(file) / 32767.0f;
+        q.w = (float)ReadRawTyped<short>(file) / 32767.0f;
+        groundRotations[index] = q;
+    }
+    
+    ReadRawTyped<int>(file);
+    
+    loadSequences(file, true);
+    
+    triggers.resize(numTriggers = ReadRawTyped<int>(file));
+    
+    for (index = 0; index < triggers.size(); index++)
+    {
+        DTSTrigger& trigger = triggers[index];
+        
+        trigger.state = ReadRawTyped<int>(file);
+        trigger.pos   = ReadRawTyped<float>(file);
+    }
 }
 
 std::string DTSShape::nodeNameAtIndex(int index) const
@@ -324,6 +493,21 @@ std::string DTSShape::decalNameAtIndex(int index) const
     }
     
     return names[decals[index].name];
+}
+
+bool DTSShape::nodeIsLinkedToObject(int node) const
+{
+    std::vector<DTSObject>::const_iterator it, end(objects.end());
+    
+    for (it = objects.begin(); it != end; ++it)
+    {
+        if ((*it).node == node)
+        {
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 #ifdef WIN32

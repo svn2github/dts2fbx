@@ -70,6 +70,7 @@ public:
     DataType ReadRawTyped(FILE* file);
 
 	void ReadRawTyped(FILE* file, std::vector<bool>& booleanVector);
+    void ReadRawTyped(FILE* file, std::string& string);
 
     void Read(int&);
     void Read(unsigned int&);
@@ -118,7 +119,10 @@ public:
     }
     
 public:
-    DTSBase(FILE* file);
+    DTSBase();
+    
+protected:
+    void load(FILE* file);
 };
 
 template <typename DataType> DataType DTSBase::ReadRawTyped(FILE* file)

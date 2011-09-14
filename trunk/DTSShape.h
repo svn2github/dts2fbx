@@ -185,6 +185,7 @@ public:
 class DTSSequence
 {
 public:
+    std::string name;
 	int   nameIndex;
 	int   flags;
 	int   numKeyFrames;
@@ -293,11 +294,19 @@ public:
 	std::vector<DTSMaterial>    materials;
     
 public:
-    DTSShape(FILE*);
+    DTSShape();
+
+    void loadShapeFile(FILE*);
+    void loadSequenceFile(FILE*);
     
-    std::string nodeNameAtIndex(int) const;
+    
+    void loadSequences(FILE*, bool dsq);
+    
+    std::string nodeNameAtIndex  (int) const;
     std::string objectNameAtIndex(int) const;
-    std::string decalNameAtIndex(int) const;
+    std::string decalNameAtIndex (int) const;
+    
+    bool nodeIsLinkedToObject(int node) const;
 };
 
 #endif
