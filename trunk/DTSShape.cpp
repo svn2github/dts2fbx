@@ -301,13 +301,13 @@ void DTSShape::loadSequences(FILE* file, bool dsq)
         
         if (dsq)
         {
-            std::string name;
-            
-            ReadRawTyped(file, name);
+            ReadRawTyped(file, p.name);
+			p.nameIndex = -1;
         }
         else
         {
             p.nameIndex = ReadRawTyped<int>(file);
+			p.name      = names[p.nameIndex];
 		}
         
         p.flags            = ReadRawTyped<int>(file);

@@ -409,7 +409,7 @@ void DTSBase::ReadRawTyped(FILE* file, std::vector<bool>& booleanVector)
 
 	fread(&intVector[0], use, sizeof(int), file);
 
-	for (int i = 0; i < use; i++)
+	for (int i = 0; i < (use * 32); i++)
 	{
 		int w = intVector[i >> 5];
 		int b = 1 << (i & 31);
