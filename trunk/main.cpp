@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <vector>
 #include <errno.h>
+#include <glob.h>
 
 #include "DTSTypes.h"
 #include "DTSBase.h"
@@ -366,8 +367,7 @@ int info(FILE* fileOut, DTSShape& shape)
     return 0;
 }
 
-int convert(const DTSResolver&, const DTSShape& shape, const char* fbxFile);
-int convertAnimations(const DTSShape& shape, const std::vector<DTSShape>& files, const char* fbxFile);
+int convert(const DTSResolver&, const DTSShape& shape, const std::vector<DTSShape>& files, const char* fbxFile, bool addAnim);
 
 int main (int argc, const char * argv[])
 {
@@ -375,44 +375,72 @@ int main (int argc, const char * argv[])
     {
         fprintf(stderr, "Syntax:\n");
         fprintf(stderr, "  %s info    file.dts\n", argv[0]);
-        fprintf(stderr, "  %s convert file.dts file.fbx\n", argv[0]);
+        fprintf(stderr, "  %s convert file.fbx file.dts [file.dsq ...]\n", argv[0]);
+        fprintf(stderr, "  %s addanim file.fbx file.dts [file.dsq ...]\n", argv[0]);
         return -1;
     }
     
-    FILE* f = fopen(argv[2], "rb");
+    FILE*    f = NULL;   
+    DTSShape shape;
+
+    if (strcmp(argv[1], "info") == 0)
+    {
+        f = fopen(argv[2], "rb");
+        
+        if (f == NULL)
+        {
+            fprintf(stderr, "Failed to open %s: %s\n", argv[2], strerror(errno));
+            return -1;
+        }
+
+        if (strcmp(argv[2] + strlen(argv[2]) - 4, ".dsq") == 0)
+        {
+            shape.loadSequenceFile(f);
+        }
+        else
+        {
+            shape.loadShapeFile(f);
+        }
+        
+        fclose(f);
+        
+        return info(stdout, shape);
+    }
+
+    /********************
+     * Read Main Shape  *
+     ********************/
+    
+    f = fopen(argv[3], "rb");
     
     if (f == NULL)
     {
-        fprintf(stderr, "Failed to open %s: %s\n", argv[2], strerror(errno));
+        fprintf(stderr, "Failed to open %s: %s\n", argv[3], strerror(errno));
         return -1;
     }
     
-    DTSShape shape;
-
     shape.loadShapeFile(f);
     fclose(f);
-    
-    if (strcmp(argv[1], "info") == 0)
+
+    /********************
+     * Read Sequences   *
+     ********************/
+    std::vector<DTSShape> sequenceFiles;
+    DTSResolver           resolver;
+
+    resolver.addPathContaining(argv[2]);
+    resolver.addPathContaining(argv[3]);
+
+    for (int index = 4; index < argc; index++)
     {
-        info(stdout, shape);
-    }
-    else if (strcmp(argv[1], "convert") == 0)
-    {
-        DTSResolver resolver;
+        glob_t g;
         
-        resolver.addPathContaining(argv[2]);
-        resolver.addPathContaining(argv[3]);
+        glob(argv[index], 0, NULL, &g);
         
-        return convert(resolver, shape, argv[3]);
-    }
-    else if (strcmp(argv[1], "addanim") == 0)
-    {
-        std::vector<DTSShape> sequenceFiles;
-        
-        for (int index = 4; index < argc; index++)
+        for (int gindex = 0; gindex < g.gl_pathc; gindex++)
         {
-            f = fopen(argv[index], "rb");
-        
+            f = fopen(g.gl_pathv[gindex], "rb");
+            
             if (f)
             {
                 DTSShape sequence;
@@ -426,9 +454,23 @@ int main (int argc, const char * argv[])
             {
                 fprintf(stderr, "Error: Can't open %s\n", argv[index]);
             }
+
+            resolver.addPathContaining(g.gl_pathv[gindex]);
         }
         
-        return convertAnimations(shape, sequenceFiles, argv[3]);
+        globfree(&g);
+    }
+
+    /**********************
+     * Perform Operations *
+     **********************/
+    if (strcmp(argv[1], "convert") == 0)
+    {
+        return convert(resolver, shape, sequenceFiles, argv[2], false);
+    }
+    else if (strcmp(argv[1], "addanim") == 0)
+    {
+        return convert(resolver, shape, sequenceFiles, argv[2], true);
     }
     else
     {

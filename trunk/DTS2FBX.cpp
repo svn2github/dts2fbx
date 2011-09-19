@@ -46,8 +46,8 @@
 class FBXExporter
 {
 public:
-	KFbxSdkManager* sdkManager;
-	KFbxScene*      scene;
+    KFbxSdkManager* sdkManager;
+    KFbxScene*      scene;
 
     std::vector<KFbxSurfaceMaterial*> materials;
     std::vector<KFbxNode*>            skeletonNodes;
@@ -56,29 +56,29 @@ public:
     FBXExporter(const DTSShape* shape);
 
 public:
-	bool load(const char* fbxFile);
-	bool save(const char* fbxFile);
+    bool load(const char* fbxFile);
+    bool save(const char* fbxFile);
 
 public:
-	void convertMesh     (const DTSShape& shape, const DTSMesh& mesh, KFbxNode* node);
-	bool convertObject   (const DTSShape& shape, const DTSSubshape& subshape, const DTSObject& object, KFbxNode* parentNode);
-	bool convertSubshape (const DTSShape& shape, const DTSSubshape& subshape, KFbxNode* parentNode);
-	bool convertSkeleton (const DTSShape& shape, KFbxNode* parentNode, const std::vector<int>& nodeIndexes);
-	void convertAnimation(const DTSShape& shape, const DTSShape& file, const DTSSequence& sequence);
+    void convertMesh     (const DTSShape& shape, const DTSMesh& mesh, KFbxNode* node);
+    bool convertObject   (const DTSShape& shape, const DTSSubshape& subshape, const DTSObject& object, KFbxNode* parentNode);
+    bool convertSubshape (const DTSShape& shape, const DTSSubshape& subshape, KFbxNode* parentNode);
+    bool convertSkeleton (const DTSShape& shape, KFbxNode* parentNode, const std::vector<int>& nodeIndexes);
+    void convertAnimation(const DTSShape& shape, const DTSShape& file, const DTSSequence& sequence);
 
-	KFbxSurfaceMaterial* convertMaterial(const DTSResolver& resolver, const DTSShape& shape, const DTSMaterial& material);
-	KFbxTexture*         createTexture(const char* name);
+    KFbxSurfaceMaterial* convertMaterial(const DTSResolver& resolver, const DTSShape& shape, const DTSMaterial& material);
+    KFbxTexture*         createTexture(const char* name);
 
-	void convertNodePositionAndRotation(const DTSShape& shape, int nodeIndex, KFbxNode* node, bool first);
+    void convertNodePositionAndRotation(const DTSShape& shape, int nodeIndex, KFbxNode* node, bool first);
 
-	void convert(const Point&      pt,  KFbxVector4& v, bool first);
-	void convert(const Quaternion& rot, KFbxVector4& v, bool first);
+    static void convert(const Point&      pt,  KFbxVector4& v, bool first);
+    static void convert(const Quaternion& rot, KFbxVector4& v, bool first);
 };
 
 FBXExporter::FBXExporter(const DTSShape* shape)
 {
-	sdkManager = KFbxSdkManager::Create();
-	scene      = KFbxScene::Create(sdkManager, "");
+    sdkManager = KFbxSdkManager::Create();
+    scene      = KFbxScene::Create(sdkManager, "");
     
     if (shape)
     {
@@ -375,27 +375,27 @@ const KFbxVector4 NormalTable[] =
 
 bool FBXExporter::load(const char* fbxFile)
 {
-	KFbxImporter*   importer   = KFbxImporter::Create(sdkManager, "");
-	KFbxIOSettings* ioSettings = KFbxIOSettings::Create(sdkManager, IOSROOT);
+    KFbxImporter*   importer   = KFbxImporter::Create(sdkManager, "");
+    KFbxIOSettings* ioSettings = KFbxIOSettings::Create(sdkManager, IOSROOT);
     
-	ioSettings->SetBoolProp(IMP_FBX_MATERIAL,  true);
-	ioSettings->SetBoolProp(IMP_FBX_TEXTURE,   true);
-	ioSettings->SetBoolProp(IMP_FBX_ANIMATION, true);
-	ioSettings->SetBoolProp(IMP_FBX_SHAPE,     true);
+    ioSettings->SetBoolProp(IMP_FBX_MATERIAL,  true);
+    ioSettings->SetBoolProp(IMP_FBX_TEXTURE,   true);
+    ioSettings->SetBoolProp(IMP_FBX_ANIMATION, true);
+    ioSettings->SetBoolProp(IMP_FBX_SHAPE,     true);
     
     if (!importer->Initialize(fbxFile, -1, ioSettings))
     {
-		fprintf(stderr, "Failed to initialize FBX importer\n");
-		importer->Destroy();
-		return false;
+        fprintf(stderr, "Failed to initialize FBX importer\n");
+        importer->Destroy();
+        return false;
     }
 
-	if (!importer->Import(scene))
-	{
-		fprintf(stderr, "Failed to load FBX file\n");
-		importer->Destroy();
-		return false;
-	}
+    if (!importer->Import(scene))
+    {
+        fprintf(stderr, "Failed to load FBX file\n");
+        importer->Destroy();
+        return false;
+    }
 
     importer->Destroy();
     return true;
@@ -403,31 +403,31 @@ bool FBXExporter::load(const char* fbxFile)
 
 bool FBXExporter::save(const char* fbxFile)
 {
-	KFbxExporter*   exporter   = KFbxExporter::Create(sdkManager, "");
-	KFbxIOSettings* ioSettings = KFbxIOSettings::Create(sdkManager, IOSROOT);
+    KFbxExporter*   exporter   = KFbxExporter::Create(sdkManager, "");
+    KFbxIOSettings* ioSettings = KFbxIOSettings::Create(sdkManager, IOSROOT);
 
-	ioSettings->SetBoolProp(EXP_FBX_MATERIAL,  true);
-	ioSettings->SetBoolProp(EXP_FBX_TEXTURE,   true);
-	ioSettings->SetBoolProp(EXP_FBX_EMBEDDED,  true);
-	ioSettings->SetBoolProp(EXP_FBX_ANIMATION, true);
-	ioSettings->SetBoolProp(EXP_FBX_SHAPE,     true);
+    ioSettings->SetBoolProp(EXP_FBX_MATERIAL,  true);
+    ioSettings->SetBoolProp(EXP_FBX_TEXTURE,   true);
+    ioSettings->SetBoolProp(EXP_FBX_EMBEDDED,  true);
+    ioSettings->SetBoolProp(EXP_FBX_ANIMATION, true);
+    ioSettings->SetBoolProp(EXP_FBX_SHAPE,     true);
 
-	if (!exporter->Initialize(fbxFile, -1, ioSettings))
-	{
-		fprintf(stderr, "Failed to initialize FBX exporter\n");
-		exporter->Destroy();
-		return false;
-	}
+    if (!exporter->Initialize(fbxFile, -1, ioSettings))
+    {
+        fprintf(stderr, "Failed to initialize FBX exporter\n");
+        exporter->Destroy();
+        return false;
+    }
 
-	if (!exporter->Export(scene))
-	{
-		fprintf(stderr, "Failed to produce FBX file\n");
-		exporter->Destroy();
-		return false;
-	}
+    if (!exporter->Export(scene))
+    {
+        fprintf(stderr, "Failed to produce FBX file\n");
+        exporter->Destroy();
+        return false;
+    }
 
-	exporter->Destroy();
-	return true;
+    exporter->Destroy();
+    return true;
 }
 
 KFbxTexture* FBXExporter::createTexture(const char* name)
@@ -497,7 +497,7 @@ void FBXExporter::convertMesh(const DTSShape& shape, const DTSMesh& mesh, KFbxNo
     
     for (index = 0; index < mesh.vertsPerFrame; index++)
     {
-		convert(mesh.verts[index], meshVectors[index], true);
+        convert(mesh.verts[index], meshVectors[index], true);
         meshUVs->GetDirectArray().Add(KFbxVector2(mesh.tverts[index].x, 1.0 - mesh.tverts[index].y));
 
 #ifdef __DEBUG__
@@ -557,7 +557,7 @@ void FBXExporter::convertMesh(const DTSShape& shape, const DTSMesh& mesh, KFbxNo
                 }
                 break;
             case 1: // TRIANGLE_STRIP:
-                for (index = primitive.firstElement + 2, orient = false; index < (primitive.firstElement + primitive.numElements); index++, orient = !orient)
+                for (index = primitive.firstElement + 2, orient = true; index < (primitive.firstElement + primitive.numElements); index++, orient = !orient)
                 {  
                     meshFbx->BeginPolygon(mapMatIndex);
                     
@@ -622,14 +622,14 @@ void FBXExporter::convertMesh(const DTSShape& shape, const DTSMesh& mesh, KFbxNo
             
             KFbxCluster* cluster = KFbxCluster::Create(sdkManager, clusterName.c_str());
             
-            cluster->SetLink(skeletonNodes[nodeIndex]);
-            cluster->SetLinkMode(KFbxCluster::eTOTAL1);
-            cluster->SetTransformMatrix(meshMatrix);
+            cluster->SetLink               (skeletonNodes[nodeIndex]);
+            cluster->SetLinkMode           (KFbxCluster::eTOTAL1);
+            cluster->SetTransformMatrix    (meshMatrix);
             cluster->SetTransformLinkMatrix(skeletonNodes[nodeIndex]->EvaluateGlobalTransform());
             
             KFbxXMatrix        fbxMatrix;
             double*            fbxMatrixD = fbxMatrix;
-            const Matrix<4,4>& dtsMatrix = *nodeMatrixIt;
+            const Matrix<4,4>& dtsMatrix  = *nodeMatrixIt;
             
             for (int mi = 0; mi < 16; mi++) {
                 fbxMatrixD[mi] = dtsMatrix.data[mi];
@@ -653,6 +653,8 @@ void FBXExporter::convertMesh(const DTSShape& shape, const DTSMesh& mesh, KFbxNo
         
         meshFbx->AddDeformer(skin);
     }
+    
+    node->LclRotation = KFbxVector4(-90, 180, 0);
 }
 
 void FBXExporter::convertNodePositionAndRotation(const DTSShape& shape, int nodeIndex, KFbxNode* node, bool first)
@@ -662,7 +664,7 @@ void FBXExporter::convertNodePositionAndRotation(const DTSShape& shape, int node
         KFbxVector4 translation;
         KFbxVector4 rotation;
     
-		convert(shape.nodeDefTranslations[nodeIndex], translation, first);
+        convert(shape.nodeDefTranslations[nodeIndex], translation, first);
         convert(shape.nodeDefRotations   [nodeIndex], rotation,    first);
         
         if (first)
@@ -719,10 +721,6 @@ bool FBXExporter::convertSubshape(const DTSShape& shape, const DTSSubshape& subs
 bool FBXExporter::convertSkeleton(const DTSShape& shape, KFbxNode* parentNode, const std::vector<int>& nodeIndexes)
 {
     KFbxNode*     rootSkeletonNode = KFbxNode::Create(scene, "Skeleton");
-    //KFbxSkeleton* rootSkeleton     = KFbxSkeleton::Create(scene, "Skeleton");
-    
-    //rootSkeleton->SetSkeletonType(KFbxSkeleton::eROOT);
-    //rootSkeletonNode->SetNodeAttribute(rootSkeleton);
     
     std::vector<int>::const_iterator nodeIt, nodeEnd(nodeIndexes.end());
     std::vector<KFbxSkeleton*>       skeletons;
@@ -741,12 +739,12 @@ bool FBXExporter::convertSkeleton(const DTSShape& shape, KFbxNode* parentNode, c
         KFbxNode*     currentNode     = KFbxNode::Create(scene, nodeName.c_str());
         KFbxSkeleton* currentSkeleton = KFbxSkeleton::Create(scene, nodeName.c_str());
         
-		if (node.parent != -1)
-	        currentSkeleton->SetSkeletonType(KFbxSkeleton::eLIMB_NODE);
-		else        
-	        currentSkeleton->SetSkeletonType(KFbxSkeleton::eROOT);
+        if (node.parent != -1)
+            currentSkeleton->SetSkeletonType(KFbxSkeleton::eLIMB_NODE);
+        else        
+            currentSkeleton->SetSkeletonType(KFbxSkeleton::eROOT);
         
-		currentNode->SetNodeAttribute(currentSkeleton);
+        currentNode->SetNodeAttribute(currentSkeleton);
         
         skeletons.push_back(currentSkeleton);
         skeletonNodes[index] = currentNode;
@@ -768,203 +766,133 @@ bool FBXExporter::convertSkeleton(const DTSShape& shape, KFbxNode* parentNode, c
 
         convertNodePositionAndRotation(shape, index, skeletonNodes[index], node.parent == -1);
         
-        KFbxXMatrix orig;
+        KFbxVector4 t, r;
+        std::string nodeName;
         
-        orig.SetR(skeletonNodes[index]->LclRotation.Get());
-        orig.SetT(skeletonNodes[index]->LclTranslation.Get());
-        orig = skeletonNodes[index]->EvaluateLocalTransform();
+        t = skeletonNodes[index]->LclTranslation.Get();
+        r = skeletonNodes[index]->LclRotation.Get();
         
-#if 0
-        KFbxXMatrix dest;
-        
-        dest = skeletonNodes[index]->EvaluateGlobalTransform();
-        
-        fprintf(stderr, "%i: %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n", index, orig.Get(0, 0), orig.Get(1, 0), orig.Get(2, 0), orig.Get(3, 0), dest.Get(0, 0), dest.Get(1, 0), dest.Get(2, 0), dest.Get(3, 0));
-        fprintf(stderr, "    %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n",        orig.Get(0, 1), orig.Get(1, 1), orig.Get(2, 1), orig.Get(3, 1), dest.Get(0, 1), dest.Get(1, 1), dest.Get(2, 1), dest.Get(3, 1));
-        fprintf(stderr, "    %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n",        orig.Get(0, 2), orig.Get(1, 2), orig.Get(2, 2), orig.Get(3, 2), dest.Get(0, 2), dest.Get(1, 2), dest.Get(2, 2), dest.Get(3, 2));
-        fprintf(stderr, "    %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n",        orig.Get(0, 3), orig.Get(1, 3), orig.Get(2, 3), orig.Get(3, 3), dest.Get(0, 3), dest.Get(1, 3), dest.Get(2, 3), dest.Get(3, 3));
-
-        dest = orig;
-        dest[0][1] = orig[1][0];
-        dest[0][2] = orig[2][0];
-        dest[1][0] = orig[0][1];
-        dest[1][2] = orig[2][1];
-        dest[2][0] = orig[0][2];
-        dest[2][1] = orig[1][2];
-        
-        fprintf(stderr, "%i: %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n", index, orig.Get(0, 0), orig.Get(1, 0), orig.Get(2, 0), orig.Get(3, 0), dest.Get(0, 0), dest.Get(1, 0), dest.Get(2, 0), dest.Get(3, 0));
-        fprintf(stderr, "    %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n",        orig.Get(0, 1), orig.Get(1, 1), orig.Get(2, 1), orig.Get(3, 1), dest.Get(0, 1), dest.Get(1, 1), dest.Get(2, 1), dest.Get(3, 1));
-        fprintf(stderr, "    %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n",        orig.Get(0, 2), orig.Get(1, 2), orig.Get(2, 2), orig.Get(3, 2), dest.Get(0, 2), dest.Get(1, 2), dest.Get(2, 2), dest.Get(3, 2));
-        fprintf(stderr, "    %+0.5f %+0.5f %+0.5f %+0.5f -> %+0.5f %+0.5f %+0.5f %+0.5f\n",        orig.Get(0, 3), orig.Get(1, 3), orig.Get(2, 3), orig.Get(3, 3), dest.Get(0, 3), dest.Get(1, 3), dest.Get(2, 3), dest.Get(3, 3));
-        
-        KFbxVector4 origR, destR;
-        
-        origR = orig.GetR();
-        destR = dest.GetR();
-        
-        fprintf(stderr, "   %f %f %f -> %f %f %f\n", origR[0], origR[1], origR[2], destR[0], destR[1], destR[2]);
-#endif
+        if (node.name != -1)
+        {
+            nodeName = shape.names[node.name];
+        }
     }
 
     parentNode->AddChild(rootSkeletonNode);
     return 0;
 }
 
-int convert(const DTSResolver& resolver, const DTSShape& shape, const char* fbxFile)
-{
-    FBXExporter exporter(&shape);
-    KFbxNode*   rootNode = exporter.scene->GetRootNode();
-    int         index;
-    
-    {
-        std::vector<DTSMaterial>::const_iterator matIt, matEnd(shape.materials.end());
-        
-        for (matIt = shape.materials.begin(); matIt != matEnd; ++matIt)
-        {
-            exporter.materials.push_back(exporter.convertMaterial(resolver, shape, *matIt));
-        }
-    }
-    
-    if (shape.subshapes.size() == 1)
-    {
-        exporter.convertSubshape(shape, shape.subshapes[0], rootNode);
-    }
-    else
-    {
-        std::vector<DTSSubshape>::const_iterator subshapeIt, subshapeEnd(shape.subshapes.end());
-        
-        for (subshapeIt = shape.subshapes.begin(), index = 0; subshapeIt != subshapeEnd; ++subshapeIt, ++index)
-        {
-            char subshapeName[64];
-            
-            snprintf(subshapeName, 64, "Subshape %i", index);
-            
-            KFbxNode* subshapeNode = KFbxNode::Create(rootNode, subshapeName);
-            
-            exporter.convertSubshape(shape, *subshapeIt, subshapeNode);
-            rootNode->AddChild(subshapeNode);
-        }
-    }
-
-	{
-		std::vector<DTSSequence>::const_iterator seqIt, seqEnd(shape.sequences.end());
-
-		for (seqIt = shape.sequences.begin(); seqIt != seqEnd; ++seqIt)
-		{
-			exporter.convertAnimation(shape, shape, *seqIt);
-		}
-	}
-    
-    return exporter.save(fbxFile);
-}
-
 class AnimatedNode
 {
 protected:
-	KFbxAnimLayer* _layer;
-	KFbxNode*      _node;
+    KFbxAnimLayer* _layer;
+    KFbxNode*      _node;
 
-	KFbxAnimCurve* _tx;
-	KFbxAnimCurve* _ty;
-	KFbxAnimCurve* _tz;
+    KFbxAnimCurve* _tx;
+    KFbxAnimCurve* _ty;
+    KFbxAnimCurve* _tz;
 
-	KFbxAnimCurve* _rx;
-	KFbxAnimCurve* _ry;
-	KFbxAnimCurve* _rz;
+    KFbxAnimCurve* _rx;
+    KFbxAnimCurve* _ry;
+    KFbxAnimCurve* _rz;
 
-	KFbxAnimCurve* getCurve(KFbxAnimCurve*& curve, KFbxTypedProperty<fbxDouble3>& fbxProperty, const char* name)
-	{
-		if (curve == NULL)
-		{
-			curve = fbxProperty.GetCurve<KFbxAnimCurve>(_layer, name, true);
-		}
+    KFbxAnimCurve* getCurve(KFbxAnimCurve*& curve, KFbxTypedProperty<fbxDouble3>& fbxProperty, const char* name)
+    {
+        if (curve == NULL)
+        {
+            curve = fbxProperty.GetCurve<KFbxAnimCurve>(_layer, name, true);
+        }
 
-		return curve;
-	}
+        return curve;
+    }
 
 public:
-	AnimatedNode(KFbxAnimLayer* layer, KFbxNode* node) :
-		_layer(layer),
-		_node (node),
-		_tx   (0),
-		_ty   (0),
-		_tz   (0),
-		_rx   (0),
-		_ry   (0),
-		_rz   (0)
-	{
-	}
+    AnimatedNode(KFbxAnimLayer* layer, KFbxNode* node) :
+        _layer(layer),
+        _node (node),
+        _tx   (0),
+        _ty   (0),
+        _tz   (0),
+        _rx   (0),
+        _ry   (0),
+        _rz   (0)
+    {
+    }
 
-	KFbxAnimCurve* tx() { return getCurve(_tx, _node->LclTranslation, KFCURVENODE_T_X); }
-	KFbxAnimCurve* ty() { return getCurve(_ty, _node->LclTranslation, KFCURVENODE_T_Y); }
-	KFbxAnimCurve* tz() { return getCurve(_tz, _node->LclTranslation, KFCURVENODE_T_Z); }
-	KFbxAnimCurve* rx() { return getCurve(_rx, _node->LclRotation,    KFCURVENODE_R_X); }
-	KFbxAnimCurve* ry() { return getCurve(_ry, _node->LclRotation,    KFCURVENODE_R_Y); }
-	KFbxAnimCurve* rz() { return getCurve(_rz, _node->LclRotation,    KFCURVENODE_R_Z); }
+    KFbxAnimCurve* tx() { return getCurve(_tx, _node->LclTranslation, KFCURVENODE_T_X); }
+    KFbxAnimCurve* ty() { return getCurve(_ty, _node->LclTranslation, KFCURVENODE_T_Y); }
+    KFbxAnimCurve* tz() { return getCurve(_tz, _node->LclTranslation, KFCURVENODE_T_Z); }
+    KFbxAnimCurve* rx() { return getCurve(_rx, _node->LclRotation,    KFCURVENODE_R_X); }
+    KFbxAnimCurve* ry() { return getCurve(_ry, _node->LclRotation,    KFCURVENODE_R_Y); }
+    KFbxAnimCurve* rz() { return getCurve(_rz, _node->LclRotation,    KFCURVENODE_R_Z); }
 
-	void End()
-	{
-		if (_tx) _tx->KeyModifyEnd();
-		if (_ty) _ty->KeyModifyEnd();
-		if (_tz) _tz->KeyModifyEnd();
-		if (_rx) _rx->KeyModifyEnd();
-		if (_ry) _ry->KeyModifyEnd();
-		if (_rz) _rz->KeyModifyEnd();
-	}
+    void End()
+    {
+        if (_tx) _tx->KeyModifyEnd();
+        if (_ty) _ty->KeyModifyEnd();
+        if (_tz) _tz->KeyModifyEnd();
+        if (_rx) _rx->KeyModifyEnd();
+        if (_ry) _ry->KeyModifyEnd();
+        if (_rz) _rz->KeyModifyEnd();
+    }
 };
 
 void FBXExporter::convertAnimation(const DTSShape& shape, const DTSShape& file, const DTSSequence& sequence)
 {
-	scene->RemoveAnimStack(sequence.name.c_str());
+    scene->RemoveAnimStack(sequence.name.c_str());
 
-	KFbxAnimStack*             animStack = KFbxAnimStack::Create(scene, sequence.name.c_str());
-	KFbxAnimLayer*             animLayer = KFbxAnimLayer::Create(scene, "Base Layer");
-	std::vector<AnimatedNode*> animCurves;
+    KFbxAnimStack*             animStack = KFbxAnimStack::Create(scene, sequence.name.c_str());
+    KFbxAnimLayer*             animLayer = KFbxAnimLayer::Create(scene, "Base Layer");
+    std::vector<AnimatedNode*> animCurves;
 
-	// Start by initializing all the animated node informations.
-	{
-		std::vector<KFbxNode*>::const_iterator it, end = skeletonNodes.end();
+    // Start by initializing all the animated node informations.
+    {
+        std::vector<KFbxNode*>::const_iterator it, end = skeletonNodes.end();
 
-		for (it = skeletonNodes.begin(); it != end; ++it)
-		{
-			if (*it)
-			{
-				animCurves.push_back(new AnimatedNode(animLayer, *it));
-			}
-			else
-			{
-				animCurves.push_back(NULL);
-			}
-		}
-	}
-	
-	int frame, nodeIndex, keyIndex;
+        for (it = skeletonNodes.begin(); it != end; ++it)
+        {
+            if (*it)
+            {
+                animCurves.push_back(new AnimatedNode(animLayer, *it));
+            }
+            else
+            {
+                animCurves.push_back(NULL);
+            }
+        }
+    }
+    
+    int frame, nodeIndex, keyIndex;
 
-	std::vector<Point>     ::const_iterator translation = file.nodeTranslations.begin();
-	std::vector<Quaternion>::const_iterator rotation    = file.nodeRotations.begin();
-//	std::vector<Point>     ::const_iterator scale       = file.nodeScalesAligned.begin();
+    std::vector<Point>     ::const_iterator translation = file.nodeTranslations.begin();
+    std::vector<Quaternion>::const_iterator rotation    = file.nodeRotations.begin();
+//    std::vector<Point>     ::const_iterator scale       = file.nodeScalesAligned.begin();
 
-	KTime          time;
-	double         timePerFrame = sequence.duration / double(sequence.numKeyFrames);
-	KFbxAnimCurve* curve;
+    
+    KTime          time;
+    double         timePerFrame = sequence.duration / double(sequence.numKeyFrames);
+    KFbxAnimCurve* curve;
+    bool           first = true;
 
-	std::vector<bool>::const_iterator mat;
+    time.SetSecondDouble(0);
+    animStack->LocalStart.Set(time);
+    animStack->ReferenceStart.Set(time);
+    time.SetSecondDouble(sequence.duration);
+    animStack->LocalStop.Set(time);
+    animStack->ReferenceStop.Set(time);
+    
+    std::vector<bool>::const_iterator mat;
 
-	for (nodeIndex = 0, mat = sequence.matters.translation.begin(); mat != sequence.matters.translation.end(); ++mat, ++nodeIndex)
-	{
-		if (!(*mat))
-		{
-			continue;
-		}
-        
-        if (skeletonNodes[nodeIndex] == NULL)
+    for (nodeIndex = 0, mat = sequence.matters.translation.begin(); mat != sequence.matters.translation.end(); ++mat, ++nodeIndex)
+    {
+        if (!(*mat))
         {
             continue;
         }
         
-        bool first = true;
+        first = true;
 
-#if 0
+        if (skeletonNodes[nodeIndex])
         {
             KFbxNodeAttribute* attr = skeletonNodes[nodeIndex]->GetNodeAttribute();
             
@@ -978,143 +906,206 @@ void FBXExporter::convertAnimation(const DTSShape& shape, const DTSShape& file, 
                 }
             }
         }
-#endif
 
-		for (frame = 0; frame < sequence.numKeyFrames; frame++)
-		{
-			time.SetSecondDouble(timePerFrame * frame);
+        for (frame = 0; frame < sequence.numKeyFrames; frame++)
+        {
+            time.SetSecondDouble(timePerFrame * frame);
 
-			if (animCurves[nodeIndex] == NULL)
-			{
-				translation++;
-				continue;
-			}
+            if (skeletonNodes[nodeIndex] == NULL)
+            {
+                translation++;
+                continue;
+            }
 
-			if (frame == 0)
-			{
-				animCurves[nodeIndex]->tx()->KeyModifyBegin();
-				animCurves[nodeIndex]->ty()->KeyModifyBegin();
-				animCurves[nodeIndex]->tz()->KeyModifyBegin();
-			}
+            if (animCurves[nodeIndex] == NULL)
+            {
+                translation++;
+                continue;
+            }
 
-			KFbxVector4 fbxTranslation;
+            if (frame == 0)
+            {
+                animCurves[nodeIndex]->tx()->KeyModifyBegin();
+                animCurves[nodeIndex]->ty()->KeyModifyBegin();
+                animCurves[nodeIndex]->tz()->KeyModifyBegin();
+            }
 
-			convert(*translation, fbxTranslation, first);
+            KFbxVector4 fbxTranslation;
 
-			curve    = animCurves[nodeIndex]->tx();
-			keyIndex = curve->KeyAdd(time);
-			curve->KeySetValue(keyIndex, (float)fbxTranslation[0]);
-			curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
+            convert(*translation, fbxTranslation, first);
 
-			curve    = animCurves[nodeIndex]->ty();
-			keyIndex = curve->KeyAdd(time);
-			curve->KeySetValue(keyIndex, (float)fbxTranslation[1]);
-			curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
+            curve    = animCurves[nodeIndex]->tx();
+            keyIndex = curve->KeyAdd(time);
+            curve->KeySetValue(keyIndex, (float)fbxTranslation[0]);
+            curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
 
-			curve    = animCurves[nodeIndex]->tz();
-			keyIndex = curve->KeyAdd(time);
-			curve->KeySetValue(keyIndex, (float)fbxTranslation[2]);
-			curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
+            curve    = animCurves[nodeIndex]->ty();
+            keyIndex = curve->KeyAdd(time);
+            curve->KeySetValue(keyIndex, (float)fbxTranslation[1]);
+            curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
 
-			translation++;
-		}
+            curve    = animCurves[nodeIndex]->tz();
+            keyIndex = curve->KeyAdd(time);
+            curve->KeySetValue(keyIndex, (float)fbxTranslation[2]);
+            curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
+
+            translation++;
+        }
     }
 
-	for (nodeIndex = 0, mat = sequence.matters.rotation.begin(); mat != sequence.matters.rotation.end(); ++mat, ++nodeIndex)
-	{
-		if (!(*mat))
-		{
-			continue;
-		}
-        
-        if (skeletonNodes[nodeIndex] == NULL)
+    for (nodeIndex = 0, mat = sequence.matters.rotation.begin(); mat != sequence.matters.rotation.end(); ++mat, ++nodeIndex)
+    {
+        if (!(*mat))
         {
             continue;
         }
 
-        bool first = true;
+        first = true;
         
-		for (frame = 0; frame < sequence.numKeyFrames; frame++)
-		{
-			time.SetSecondDouble(timePerFrame * frame);
+        for (frame = 0; frame < sequence.numKeyFrames; frame++)
+        {
+            if (skeletonNodes[nodeIndex] == NULL)
+            {
+                rotation++;
+                continue;
+            }
+            
+            time.SetSecondDouble(timePerFrame * frame);
 
-			if (frame == 0)
-			{
-				animCurves[nodeIndex]->rx()->KeyModifyBegin();
-				animCurves[nodeIndex]->ry()->KeyModifyBegin();
-				animCurves[nodeIndex]->rz()->KeyModifyBegin();
-			}
+            if (frame == 0)
+            {
+                animCurves[nodeIndex]->rx()->KeyModifyBegin();
+                animCurves[nodeIndex]->ry()->KeyModifyBegin();
+                animCurves[nodeIndex]->rz()->KeyModifyBegin();
+            }
 
-			KFbxVector4 eulerRotation;
-			
-			convert(*rotation, eulerRotation, first);
+            KFbxVector4 eulerRotation;
+                
+            convert(*rotation, eulerRotation, first);
+            
+            curve    = animCurves[nodeIndex]->rx();
+            keyIndex = curve->KeyAdd(time);
+            curve->KeySetValue(keyIndex, (float)eulerRotation[0]);
+            curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CONSTANT);
 
-			curve    = animCurves[nodeIndex]->rx();
-			keyIndex = curve->KeyAdd(time);
-			curve->KeySetValue(keyIndex, (float)eulerRotation[0]);
-			curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
+            curve    = animCurves[nodeIndex]->ry();
+            keyIndex = curve->KeyAdd(time);
+            curve->KeySetValue(keyIndex, (float)eulerRotation[1]);
+            curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CONSTANT);
 
-			curve    = animCurves[nodeIndex]->ry();
-			keyIndex = curve->KeyAdd(time);
-			curve->KeySetValue(keyIndex, (float)eulerRotation[1]);
-			curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
-
-			curve    = animCurves[nodeIndex]->rz();
-			keyIndex = curve->KeyAdd(time);
-			curve->KeySetValue(keyIndex, (float)eulerRotation[2]);
-			curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CUBIC);
-
-			rotation++;
-		}
-	}
-
-	// Close all the curves.
-	{
-		std::vector<AnimatedNode*>::const_iterator it, end(animCurves.end());
-
-		for (it = animCurves.begin(); it != end; ++it)
-		{
-			if (*it)
-			{
-				(*it)->End();
-			}
-		}
-	}
-
-	animStack->AddMember(animLayer);
-}
-
-int convertAnimations(const DTSShape& shape, const std::vector<DTSShape>& files, const char* fbxFile)
-{
-	FBXExporter exporter(NULL);
-    
-    if (!exporter.load(fbxFile) != 0)
-    {
-        return -1;
+            curve    = animCurves[nodeIndex]->rz();
+            keyIndex = curve->KeyAdd(time);
+            curve->KeySetValue(keyIndex, (float)eulerRotation[2]);
+            curve->KeySetInterpolation(keyIndex, KFbxAnimCurveDef::eINTERPOLATION_CONSTANT);
+            
+            rotation++;
+        }
     }
 
-	KFbxNode* skeleton = exporter.scene->GetRootNode();
+    // Close all the curves.
+    {
+        std::vector<AnimatedNode*>::const_iterator it, end(animCurves.end());
 
-	std::vector<DTSShape>::const_iterator it, end(files.end());
+        for (it = animCurves.begin(); it != end; ++it)
+        {
+            if (*it)
+            {
+                (*it)->End();
+            }
+        }
+    }
 
-	for (it = files.begin(); it != end; ++it)
-	{
-		const DTSShape& file(*it);
+    animStack->AddMember(animLayer);
+}
 
-		std::vector<std::string>::const_iterator itNames, endNames(file.names.end());
+int convert(const DTSResolver& resolver, const DTSShape& shape, const std::vector<DTSShape>& files, const char* fbxFile, bool addAnim)
+{
+    FBXExporter* exporter;
+    
+    if (addAnim)
+    {
+        exporter = new FBXExporter(NULL);
+        
+        if (!exporter->load(fbxFile) != 0)
+        {
+            return -1;
+        }
+    }
+    else
+    {
+        exporter = new FBXExporter(&shape);
+    
+        KFbxNode*   rootNode = exporter->scene->GetRootNode();
+        int         index;
+        
+        {
+            std::vector<DTSMaterial>::const_iterator matIt, matEnd(shape.materials.end());
+            
+            for (matIt = shape.materials.begin(); matIt != matEnd; ++matIt)
+            {
+                exporter->materials.push_back(exporter->convertMaterial(resolver, shape, *matIt));
+            }
+        }
+        
+        if (shape.subshapes.size() == 1)
+        {
+            exporter->convertSubshape(shape, shape.subshapes[0], rootNode);
+        }
+        else
+        {
+            std::vector<DTSSubshape>::const_iterator subshapeIt, subshapeEnd(shape.subshapes.end());
+            
+            for (subshapeIt = shape.subshapes.begin(), index = 0; subshapeIt != subshapeEnd; ++subshapeIt, ++index)
+            {
+                char subshapeName[64];
+                
+                snprintf(subshapeName, 64, "Subshape %i", index);
+                
+                KFbxNode* subshapeNode = KFbxNode::Create(rootNode, subshapeName);
+                
+                exporter->convertSubshape(shape, *subshapeIt, subshapeNode);
+                rootNode->AddChild(subshapeNode);
+            }
+        }
+        
+        std::vector<DTSSequence>::const_iterator seqIt, seqEnd;
+        
+        {
+            std::vector<DTSSequence>::const_iterator seqIt, seqEnd(shape.sequences.end());
+            
+            for (seqIt = shape.sequences.begin(); seqIt != seqEnd; ++seqIt)
+            {
+                exporter->convertAnimation(shape, shape, *seqIt);
+            }
+        }
+    }
 
-		for (itNames = file.names.begin(); itNames != endNames; ++itNames)
-		{
-			exporter.skeletonNodes.push_back(skeleton->FindChild((*itNames).c_str(), true));
-		}
-
-		std::vector<DTSSequence>::const_iterator seqIt, seqEnd(file.sequences.end());
-
-		for (seqIt = file.sequences.begin(); seqIt != seqEnd; ++seqIt)
-		{
-			exporter.convertAnimation(shape, file, *seqIt);
-		}
-	}
-
-    return !exporter.save(fbxFile);
+    {
+        KFbxNode* skeleton = exporter->scene->GetRootNode();
+        
+        std::vector<DTSShape>::const_iterator it, end(files.end());
+        
+        for (it = files.begin(); it != end; ++it)
+        {
+            const DTSShape& file(*it);
+            
+            exporter->skeletonNodes.clear();
+            
+            std::vector<std::string>::const_iterator itNames, endNames(file.names.end());
+            
+            for (itNames = file.names.begin(); itNames != endNames; ++itNames)
+            {
+                exporter->skeletonNodes.push_back(skeleton->FindChild((*itNames).c_str(), true));
+            }
+            
+            std::vector<DTSSequence>::const_iterator seqIt, seqEnd(file.sequences.end());
+            
+            for (seqIt = file.sequences.begin(); seqIt != seqEnd; ++seqIt)
+            {
+                exporter->convertAnimation(shape, file, *seqIt);
+            }
+        }
+    }
+    
+    return exporter->save(fbxFile);
 }

@@ -883,7 +883,7 @@
 		796334DA13C7EEB8003E264E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -901,7 +901,7 @@
 		796334DB13C7EEB8003E264E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -924,6 +924,7 @@
 					FBXSDK.2012.1/include,
 					"\"$(SRCROOT)/FBXSDK.2012.1/lib/gcc4/ub\"",
 				);
+				OTHER_LDFLAGS = "-liconv";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -940,6 +941,7 @@
 					FBXSDK.2012.1/include,
 					"\"$(SRCROOT)/FBXSDK.2012.1/lib/gcc4/ub\"",
 				);
+				OTHER_LDFLAGS = "-liconv";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
