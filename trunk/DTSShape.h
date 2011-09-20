@@ -126,12 +126,12 @@ public:
 class DTSCluster
 {
 public:
-	int     startPrimitive;
-	int     endPrimitive;
-	Point   normal;
-	float   k;
-	int     frontCluster;
-	int     backCluster;
+    int     startPrimitive;
+    int     endPrimitive;
+    Point   normal;
+    float   k;
+    int     frontCluster;
+    int     backCluster;
 };
 
 class DTSMesh
@@ -167,40 +167,40 @@ public:
     int vertsPerFrame;
     int flags;
 
-	// Skin data
-	std::vector<int>          vindex;
-	std::vector<int>          vbone;
-	std::vector<float>        vweight;
-	std::vector<int>          nodeIndex;
-	std::vector<Matrix<4,4> > nodeTransform;
+    // Skin data
+    std::vector<int>          vindex;
+    std::vector<int>          vbone;
+    std::vector<float>        vweight;
+    std::vector<int>          nodeIndex;
+    std::vector<Matrix<4,4> > nodeTransform;
 
-	// Decal data
-	std::vector<DTSCluster> clusters;
-	std::vector<int>        startCluster;
-	std::vector<int>        firstVerts;
-	std::vector<int>        numVerts;
-	std::vector<int>        firstTVerts;
+    // Decal data
+    std::vector<DTSCluster> clusters;
+    std::vector<int>        startCluster;
+    std::vector<int>        firstVerts;
+    std::vector<int>        numVerts;
+    std::vector<int>        firstTVerts;
 };
 
 class DTSSequence
 {
 public:
     std::string name;
-	int   nameIndex;
-	int   flags;
-	int   numKeyFrames;
-	float duration;
-	int   priority;
-	int   firstGroundFrame;
-	int   numGroundFrames;
-	int   baseRotation;
-	int   baseTranslation;
-	int   baseScale;
-	int   baseObjectState;
-	int   baseDecalState;
-	int   firstTrigger;
-	int   numTriggers;
-	float toolBegin;
+    int   nameIndex;
+    int   flags;
+    int   numKeyFrames;
+    float duration;
+    int   priority;
+    int   firstGroundFrame;
+    int   numGroundFrames;
+    int   baseRotation;
+    int   baseTranslation;
+    int   baseScale;
+    int   baseObjectState;
+    int   baseDecalState;
+    int   firstTrigger;
+    int   numTriggers;
+    float toolBegin;
 
     struct matters_array {
         std::vector<bool> rotation;
@@ -217,13 +217,13 @@ public:
 class DTSMaterial
 {
 public:
-	std::string name;
-	int         flags;
-	int         reflectance;
-	int         bump;
-	int         detail;
-	int         detailScale;
-	int         reflection;
+    std::string name;
+    int         flags;
+    int         reflectance;
+    int         bump;
+    int         detail;
+    int         detailScale;
+    int         reflection;
 };
 
 class DTSResolver
@@ -291,21 +291,21 @@ public:
     std::vector<DTSMesh>        meshes;
     std::vector<DTSSequence>    sequences;
     std::vector<std::string>    names;
-	std::vector<DTSMaterial>    materials;
+    std::vector<DTSMaterial>    materials;
     
 public:
     DTSShape();
 
     void loadShapeFile(FILE*);
-    void loadSequenceFile(FILE*);
-    
-    
+    void loadSequenceFile(FILE*, const DTSShape* baseShape);
     void loadSequences(FILE*, bool dsq);
     
     std::string nodeNameAtIndex  (int) const;
     std::string objectNameAtIndex(int) const;
     std::string decalNameAtIndex (int) const;
     
+    int findNode(const char* nodeName) const;
+
     bool nodeIsLinkedToObject(int node) const;
 };
 

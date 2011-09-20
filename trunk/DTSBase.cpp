@@ -148,28 +148,28 @@ void DTSBase::Read(Quaternion& value)
 
 void DTSBase::Read(Matrix<4,4>& matrix)
 {
-	float* m = matrix.data;
+    float* m = matrix.data;
 
-	Read((int*)m, 16);
+    Read((int*)m, 16);
 }
 
 void DTSBase::Read(std::string& value)
 {
-	char c;
+    char c;
 
-	value.clear();
+    value.clear();
 
-	while (true)
-	{
-		Read(c);
+    while (true)
+    {
+        Read(c);
 
-		if (c == 0)
-		{
-			break;
-		}
+        if (c == 0)
+        {
+            break;
+        }
 
-		value += c;
-	}
+        value += c;
+    }
 }
 
 void DTSBase::Read(DTSNode& value)
@@ -324,61 +324,61 @@ void DTSBase::Read(DTSMesh& value)
         Read(value.normals);
         Read(value.enormals);
 
-		int numNodeIndex;
+        int numNodeIndex;
 
-		Read(numNodeIndex);
-		value.nodeTransform.resize(numNodeIndex);
-		Read(value.nodeTransform);
+        Read(numNodeIndex);
+        value.nodeTransform.resize(numNodeIndex);
+        Read(value.nodeTransform);
 
-		int numVindex;
+        int numVindex;
 
-		Read(numVindex);
-		value.vindex .resize(numVindex);
-		value.vbone  .resize(numVindex);
-		value.vweight.resize(numVindex);
-		Read(value.vindex);
-		Read(value.vbone);
-		Read(value.vweight);
+        Read(numVindex);
+        value.vindex .resize(numVindex);
+        value.vbone  .resize(numVindex);
+        value.vweight.resize(numVindex);
+        Read(value.vindex);
+        Read(value.vbone);
+        Read(value.vweight);
 
-		Read(numNodeIndex);
-		value.nodeIndex.resize(numNodeIndex);
-		Read(value.nodeIndex);
-		ReadCheck();
+        Read(numNodeIndex);
+        value.nodeIndex.resize(numNodeIndex);
+        Read(value.nodeIndex);
+        ReadCheck();
     }
     
-	if (value.type == DTSMesh::T_Sorted)
+    if (value.type == DTSMesh::T_Sorted)
     {
-		int numCluster;
-		int numStartCluster;
-		int numFirstVerts;
-		int numNumVerts;
-		int numFirstTVerts;
+        int numCluster;
+        int numStartCluster;
+        int numFirstVerts;
+        int numNumVerts;
+        int numFirstTVerts;
 
-		Read(numCluster);
-		value.clusters.resize(numCluster);
-		Read(value.clusters);
+        Read(numCluster);
+        value.clusters.resize(numCluster);
+        Read(value.clusters);
 
-		Read(numStartCluster);
-		value.startCluster.resize(numStartCluster);
-		Read(value.startCluster);
+        Read(numStartCluster);
+        value.startCluster.resize(numStartCluster);
+        Read(value.startCluster);
 
-		Read(numFirstVerts);
-		value.firstVerts.resize(numFirstVerts);
-		Read(value.firstVerts);
+        Read(numFirstVerts);
+        value.firstVerts.resize(numFirstVerts);
+        Read(value.firstVerts);
 
-		Read(numNumVerts);
-		value.numVerts.resize(numNumVerts);
-		Read(value.numVerts);
+        Read(numNumVerts);
+        value.numVerts.resize(numNumVerts);
+        Read(value.numVerts);
 
-		Read(numFirstTVerts);
-		value.firstTVerts.resize(numFirstTVerts);
-		Read(value.firstTVerts);
+        Read(numFirstTVerts);
+        value.firstTVerts.resize(numFirstTVerts);
+        Read(value.firstTVerts);
 
-		int alwaysWriteDepth;
+        int alwaysWriteDepth;
 
-		Read(alwaysWriteDepth);
-		ReadCheck();
-	}
+        Read(alwaysWriteDepth);
+        ReadCheck();
+    }
 };
 
 void DTSBase::ReadRawTyped(FILE* file, std::string& string)
@@ -393,36 +393,36 @@ void DTSBase::ReadRawTyped(FILE* file, std::string& string)
 
 void DTSBase::ReadRawTyped(FILE* file, std::vector<bool>& booleanVector)
 {
-	int use = ReadRawTyped<int>(file);
+    int use = ReadRawTyped<int>(file);
 
-	use = ReadRawTyped<int>(file);
+    use = ReadRawTyped<int>(file);
 
-	if (use <= 0)
-	{
-		return;
-	}
+    if (use <= 0)
+    {
+        return;
+    }
 
-	std::vector<int> intVector;
+    std::vector<int> intVector;
 
-	intVector    .resize(use);
-	booleanVector.resize(use * 32);
+    intVector    .resize(use);
+    booleanVector.resize(use * 32);
 
-	fread(&intVector[0], use, sizeof(int), file);
+    fread(&intVector[0], use, sizeof(int), file);
 
-	for (int i = 0; i < (use * 32); i++)
-	{
-		int w = intVector[i >> 5];
-		int b = 1 << (i & 31);
+    for (int i = 0; i < (use * 32); i++)
+    {
+        int w = intVector[i >> 5];
+        int b = 1 << (i & 31);
 
-		if (w & b)
-		{
-			booleanVector[i] = true;
-		}
-		else
-		{
-			booleanVector[i] = false;
-		}
-	}
+        if (w & b)
+        {
+            booleanVector[i] = true;
+        }
+        else
+        {
+            booleanVector[i] = false;
+        }
+    }
 }
 
 DTSBase::DTSBase()

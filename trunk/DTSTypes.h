@@ -53,7 +53,7 @@ template <int row, int column>
 class Matrix
 {
 public:
-	float data[row * column];
+    float data[row * column];
 };
 
 #endif

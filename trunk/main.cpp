@@ -27,7 +27,10 @@
 #include <assert.h>
 #include <vector>
 #include <errno.h>
+
+#ifndef WIN32
 #include <glob.h>
+#endif
 
 #include "DTSTypes.h"
 #include "DTSBase.h"
@@ -268,23 +271,23 @@ int info(FILE* fileOut, DTSShape& shape)
             
             fprintf(fileOut, "  Mesh #%i\n", index);
 
-			const char* typeString = "(unknown)";
+            const char* typeString = "(unknown)";
 
-			switch (mesh.type)
-			{
-			case DTSMesh::T_Standard: typeString = "standard"; break;
-			case DTSMesh::T_Skin:     typeString = "skin"; break;
-			case DTSMesh::T_Decal:    typeString = "decal"; break;
-			case DTSMesh::T_Sorted:   typeString = "sorted"; break;
-			case DTSMesh::T_Null:     typeString = "null (collision)"; break;
-			}
+            switch (mesh.type)
+            {
+            case DTSMesh::T_Standard: typeString = "standard"; break;
+            case DTSMesh::T_Skin:     typeString = "skin"; break;
+            case DTSMesh::T_Decal:    typeString = "decal"; break;
+            case DTSMesh::T_Sorted:   typeString = "sorted"; break;
+            case DTSMesh::T_Null:     typeString = "null (collision)"; break;
+            }
 
-			fprintf(fileOut, "    type:                 %s (%i)\n", typeString, mesh.type);
+            fprintf(fileOut, "    type:                 %s (%i)\n", typeString, mesh.type);
 
-			if (mesh.type == DTSMesh::T_Null)
-			{
-				continue;
-			}
+            if (mesh.type == DTSMesh::T_Null)
+            {
+                continue;
+            }
 
             fprintf(fileOut, "    frame count:          %i\n", mesh.numFrames);
             fprintf(fileOut, "    material frame count: %i\n", mesh.matFrames);
@@ -325,42 +328,42 @@ int info(FILE* fileOut, DTSShape& shape)
                 }
             }
 
-			if (mesh.type == DTSMesh::T_Skin)
-			{
-				{
-					std::vector<int>::const_iterator sit, send(mesh.vindex.end());
+            if (mesh.type == DTSMesh::T_Skin)
+            {
+                {
+                    std::vector<int>::const_iterator sit, send(mesh.vindex.end());
                 
-					for (sit = mesh.vindex.begin(), sindex = 0; sit != send; ++sit, ++sindex)
-					{
-						fprintf(fileOut, "    vindex #%i:  %i\n", sindex, (*sit));
-					}
+                    for (sit = mesh.vindex.begin(), sindex = 0; sit != send; ++sit, ++sindex)
+                    {
+                        fprintf(fileOut, "    vindex #%i:  %i\n", sindex, (*sit));
+                    }
 
-					send = mesh.vbone.end();
+                    send = mesh.vbone.end();
                 
-					for (sit = mesh.vbone.begin(), sindex = 0; sit != send; ++sit, ++sindex)
-					{
-						fprintf(fileOut, "    vbone #%i:  %i\n", sindex, (*sit));
-					}
-				}
+                    for (sit = mesh.vbone.begin(), sindex = 0; sit != send; ++sit, ++sindex)
+                    {
+                        fprintf(fileOut, "    vbone #%i:  %i\n", sindex, (*sit));
+                    }
+                }
 
-				{
-					std::vector<float>::const_iterator sit, send(mesh.vweight.end());
+                {
+                    std::vector<float>::const_iterator sit, send(mesh.vweight.end());
 
-					for (sit = mesh.vweight.begin(), sindex = 0; sit != send; ++sit, ++sindex)
-					{
-						fprintf(fileOut, "    vweight #%i:  %f\n", sindex, (*sit));
-					}
-				}
+                    for (sit = mesh.vweight.begin(), sindex = 0; sit != send; ++sit, ++sindex)
+                    {
+                        fprintf(fileOut, "    vweight #%i:  %f\n", sindex, (*sit));
+                    }
+                }
 
-				{
-					std::vector<int>::const_iterator sit, send(mesh.nodeIndex.end());
+                {
+                    std::vector<int>::const_iterator sit, send(mesh.nodeIndex.end());
                 
-					for (sit = mesh.nodeIndex.begin(), sindex = 0; sit != send; ++sit, ++sindex)
-					{
-						fprintf(fileOut, "    node index #%i:  %i\n", sindex, (*sit));
-					}
-				}
-			}
+                    for (sit = mesh.nodeIndex.begin(), sindex = 0; sit != send; ++sit, ++sindex)
+                    {
+                        fprintf(fileOut, "    node index #%i:  %i\n", sindex, (*sit));
+                    }
+                }
+            }
         }
     }
 
@@ -395,7 +398,7 @@ int main (int argc, const char * argv[])
 
         if (strcmp(argv[2] + strlen(argv[2]) - 4, ".dsq") == 0)
         {
-            shape.loadSequenceFile(f);
+            shape.loadSequenceFile(f, NULL);
         }
         else
         {
@@ -433,6 +436,9 @@ int main (int argc, const char * argv[])
 
     for (int index = 4; index < argc; index++)
     {
+#ifdef WIN32
+        f = fopen(argv[index], "rb");
+#else
         glob_t g;
         
         glob(argv[index], 0, NULL, &g);
@@ -440,12 +446,13 @@ int main (int argc, const char * argv[])
         for (int gindex = 0; gindex < g.gl_pathc; gindex++)
         {
             f = fopen(g.gl_pathv[gindex], "rb");
+#endif
             
             if (f)
             {
                 DTSShape sequence;
                 
-                sequence.loadSequenceFile(f);
+                sequence.loadSequenceFile(f, &shape);
                 fclose(f);
                 
                 sequenceFiles.push_back(sequence);
@@ -455,10 +462,12 @@ int main (int argc, const char * argv[])
                 fprintf(stderr, "Error: Can't open %s\n", argv[index]);
             }
 
+#ifndef WIN32
             resolver.addPathContaining(g.gl_pathv[gindex]);
         }
         
         globfree(&g);
+#endif
     }
 
     /**********************

@@ -69,7 +69,7 @@ public:
     template <typename DataType>
     DataType ReadRawTyped(FILE* file);
 
-	void ReadRawTyped(FILE* file, std::vector<bool>& booleanVector);
+    void ReadRawTyped(FILE* file, std::vector<bool>& booleanVector);
     void ReadRawTyped(FILE* file, std::string& string);
 
     void Read(int&);
@@ -92,7 +92,7 @@ public:
     void Read(Point2D&);
     void Read(Box&);
     void Read(Quaternion&);
-	void Read(Matrix<4,4>&);
+    void Read(Matrix<4,4>&);
     
     void Read(DTSNode&);
     void Read(DTSObject&);

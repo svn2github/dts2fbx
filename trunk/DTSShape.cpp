@@ -258,85 +258,85 @@ void DTSShape::loadShapeFile(FILE* file)
     // Sequences
     loadSequences(file, false);
 
-	// Materials
+    // Materials
 
-	/*char materialListVersion =*/ ReadRawTyped<char>(file);
-	int  materialCount       = ReadRawTyped<int> (file);
+    /*char materialListVersion =*/ ReadRawTyped<char>(file);
+    int  materialCount       = ReadRawTyped<int> (file);
 
-	materials.resize(materialCount);
+    materials.resize(materialCount);
 
-	std::vector<DTSMaterial>::iterator mat;
-	for (mat = materials.begin(); mat != materials.end() ; mat++)
-	{
-		DTSMaterial&  material = *mat;
-		unsigned char length   = ReadRawTyped<unsigned char>(file);
+    std::vector<DTSMaterial>::iterator mat;
+    for (mat = materials.begin(); mat != materials.end() ; mat++)
+    {
+        DTSMaterial&  material = *mat;
+        unsigned char length   = ReadRawTyped<unsigned char>(file);
 
-		material.name.resize(length);
-		fread((char*)material.name.data(), length, 1, file);
-	}
+        material.name.resize(length);
+        fread((char*)material.name.data(), length, 1, file);
+    }
 
-	for (mat = materials.begin() ; mat != materials.end() ; mat++)
-		(*mat).flags = ReadRawTyped<int>(file);
-	for (mat = materials.begin() ; mat != materials.end() ; mat++)
-		(*mat).reflectance = ReadRawTyped<int>(file);
-	for (mat = materials.begin() ; mat != materials.end() ; mat++)
-		(*mat).bump = ReadRawTyped<int>(file);
-	for (mat = materials.begin() ; mat != materials.end() ; mat++)
-		(*mat).detail = ReadRawTyped<int>(file);
-	for (mat = materials.begin() ; mat != materials.end() ; mat++)
-		(*mat).detailScale = ReadRawTyped<int>(file);
-	for (mat = materials.begin() ; mat != materials.end() ; mat++)
-		(*mat).reflection = ReadRawTyped<int>(file);
+    for (mat = materials.begin() ; mat != materials.end() ; mat++)
+        (*mat).flags = ReadRawTyped<int>(file);
+    for (mat = materials.begin() ; mat != materials.end() ; mat++)
+        (*mat).reflectance = ReadRawTyped<int>(file);
+    for (mat = materials.begin() ; mat != materials.end() ; mat++)
+        (*mat).bump = ReadRawTyped<int>(file);
+    for (mat = materials.begin() ; mat != materials.end() ; mat++)
+        (*mat).detail = ReadRawTyped<int>(file);
+    for (mat = materials.begin() ; mat != materials.end() ; mat++)
+        (*mat).detailScale = ReadRawTyped<int>(file);
+    for (mat = materials.begin() ; mat != materials.end() ; mat++)
+        (*mat).reflection = ReadRawTyped<int>(file);
 }
 
 void DTSShape::loadSequences(FILE* file, bool dsq)
 {
-	int numSequences = ReadRawTyped<int>(file);
+    int numSequences = ReadRawTyped<int>(file);
     
-	sequences.resize(numSequences);
+    sequences.resize(numSequences);
     
-	for (size_t seq = 0 ; seq < sequences.size() ; seq++)
-	{
-		DTSSequence& p = sequences[seq];
+    for (size_t seq = 0 ; seq < sequences.size() ; seq++)
+    {
+        DTSSequence& p = sequences[seq];
         
         if (dsq)
         {
             ReadRawTyped(file, p.name);
-			p.nameIndex = -1;
+            p.nameIndex = -1;
         }
         else
         {
             p.nameIndex = ReadRawTyped<int>(file);
-			p.name      = names[p.nameIndex];
-		}
+            p.name      = names[p.nameIndex];
+        }
         
         p.flags            = ReadRawTyped<int>(file);
-		p.numKeyFrames     = ReadRawTyped<int>(file);
-		p.duration         = ReadRawTyped<float>(file);
-		p.priority         = ReadRawTyped<int>(file);
-		p.firstGroundFrame = ReadRawTyped<int>(file);
-		p.numGroundFrames  = ReadRawTyped<int>(file);
-		p.baseRotation     = ReadRawTyped<int>(file);
-		p.baseTranslation  = ReadRawTyped<int>(file);
-		p.baseScale        = ReadRawTyped<int>(file);
-		p.baseObjectState  = ReadRawTyped<int>(file);
-		p.baseDecalState   = ReadRawTyped<int>(file);
-		p.firstTrigger     = ReadRawTyped<int>(file);
-		p.numTriggers      = ReadRawTyped<int>(file);
-		p.toolBegin        = ReadRawTyped<float>(file);
+        p.numKeyFrames     = ReadRawTyped<int>(file);
+        p.duration         = ReadRawTyped<float>(file);
+        p.priority         = ReadRawTyped<int>(file);
+        p.firstGroundFrame = ReadRawTyped<int>(file);
+        p.numGroundFrames  = ReadRawTyped<int>(file);
+        p.baseRotation     = ReadRawTyped<int>(file);
+        p.baseTranslation  = ReadRawTyped<int>(file);
+        p.baseScale        = ReadRawTyped<int>(file);
+        p.baseObjectState  = ReadRawTyped<int>(file);
+        p.baseDecalState   = ReadRawTyped<int>(file);
+        p.firstTrigger     = ReadRawTyped<int>(file);
+        p.numTriggers      = ReadRawTyped<int>(file);
+        p.toolBegin        = ReadRawTyped<float>(file);
         
-		ReadRawTyped(file, p.matters.rotation);
-		ReadRawTyped(file, p.matters.translation);
-		ReadRawTyped(file, p.matters.scale);
-		ReadRawTyped(file, p.matters.decal);
-		ReadRawTyped(file, p.matters.ifl);
-		ReadRawTyped(file, p.matters.vis);
-		ReadRawTyped(file, p.matters.frame);
-		ReadRawTyped(file, p.matters.matframe);
-	}
+        ReadRawTyped(file, p.matters.rotation);
+        ReadRawTyped(file, p.matters.translation);
+        ReadRawTyped(file, p.matters.scale);
+        ReadRawTyped(file, p.matters.decal);
+        ReadRawTyped(file, p.matters.ifl);
+        ReadRawTyped(file, p.matters.vis);
+        ReadRawTyped(file, p.matters.frame);
+        ReadRawTyped(file, p.matters.matframe);
+    }
 }
 
-void DTSShape::loadSequenceFile(FILE* file)
+void DTSShape::loadSequenceFile(FILE* file, const DTSShape* baseShape)
 {
     size_t index;
     
@@ -458,6 +458,26 @@ void DTSShape::loadSequenceFile(FILE* file)
         trigger.state = ReadRawTyped<int>(file);
         trigger.pos   = ReadRawTyped<float>(file);
     }
+}
+
+int DTSShape::findNode(const char* nodeName) const
+{
+    int index;
+
+    for (index = 0; index < nodes.size(); index++)
+    {
+        const DTSNode& node(nodes[index]);
+
+        if (node.name != -1)
+        {
+            if (strcmp(names[node.name].c_str(), nodeName) == 0)
+            {
+                return index;
+            }
+        }
+    }
+
+    return -1;
 }
 
 std::string DTSShape::nodeNameAtIndex(int index) const
